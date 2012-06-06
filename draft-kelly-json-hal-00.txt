@@ -1,0 +1,294 @@
+
+
+
+Network Working Group                                           M. Kelly
+Internet-Draft                                                 Stateless
+Intended status: Informational                             June 07, 2012
+Expires: December 07, 2012
+
+
+                   JSON Hypertext Application Lanuage
+                        draft-kelly-json-hal-00
+
+Abstract
+
+   This document proposes a media type for representing resources with
+   hyperlinks.
+
+Status of this Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on December 07, 2012.
+
+Copyright Notice
+
+   Copyright (c) 2012 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (http://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Simplified BSD License text
+   as described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Simplified BSD License.
+
+Table of Contents
+
+   1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  2
+   2.  Requirements . . . . . . . . . . . . . . . . . . . . . . . . .  2
+   3.  JSON HAL Documents . . . . . . . . . . . . . . . . . . . . . .  2
+   4.  Resource Objects . . . . . . . . . . . . . . . . . . . . . . .  3
+     4.1.  Links  . . . . . . . . . . . . . . . . . . . . . . . . . .  3
+
+Kelly                  Expires December 07, 2012                [Page 1]
+
+Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+
+     4.2.  Embedded Resources . . . . . . . . . . . . . . . . . . . .  3
+   5.  Link Objects . . . . . . . . . . . . . . . . . . . . . . . . .  4
+     5.1.  href . . . . . . . . . . . . . . . . . . . . . . . . . . .  4
+     5.2.  templated  . . . . . . . . . . . . . . . . . . . . . . . .  4
+     5.3.  title  . . . . . . . . . . . . . . . . . . . . . . . . . .  4
+     5.4.  hreflang . . . . . . . . . . . . . . . . . . . . . . . . .  4
+   6.  Security Considerations  . . . . . . . . . . . . . . . . . . .  4
+   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . .  4
+   8.  References . . . . . . . . . . . . . . . . . . . . . . . . . .  4
+   Appendix A. Acknowledgements . . . . . . . . . . . . . . . . . . .  5
+   Appendix B. Frequently Asked Questions . . . . . . . . . . . . . .  5
+     Appendix B.1.  What about authentication?  . . . . . . . . . . .  5
+   Author's Address . . . . . . . . . . . . . . . . . . . . . . . . .  5
+
+1.  Introduction
+
+   There is an emergence of non-HTML HTTP applications ("Web APIs")
+   which use hyperlinks to direct clients around their resources.
+
+   The JSON Hypertext Application Language (HAL) is a standard which
+   establishes conventions for expressing hyperlinks with JSON
+   [RFC4627].
+
+   HAL is a generic media type with which Web APIs can be developed and
+   exposed as series of links.  Clients of these APIs can select links
+   by their link relation type and traverse them in order to progress
+   through the application.
+
+   HAL's conventions result in a uniform interface for serving and
+   consuming hypertext, enabling the creation of general-purpose
+   libraries that can be re-used on any API utilising HAL.
+
+   The primary design goals of HAL are generality and simplicity.  HAL
+   can be applied to many different domains, and imposes the minimal
+   amount of structure necessary to cover the key hypertext requirements
+   (links and embedded documents).
+
+2.  Requirements
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
+
+3.  JSON HAL Documents
+
+   A JSON HAL Document uses the format described in [RFC4627] and has
+   the media type "application/hal+json".
+
+   Its root object MUST be a Resource Object.
+
+   For example:
+
+
+
+
+
+
+Kelly                  Expires December 07, 2012                [Page 2]
+
+Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+
+
+   GET /orders/523 HTTP/1.1
+   Host: example.org
+   Accept: application/hal+json
+   
+   HTTP/1.1 200 OK
+   Content-Type: application/hal+json
+   
+   {
+     "_links": {
+       "self": { "href": "/orders/523" },
+       "warehouse": { "href": "/warehouse/56" },
+       "invoice": { "href": "/invoices/873" }
+     },
+     "currency": "USD",
+     "status": "shipped",
+     "total": 10.20
+   }
+
+   Here, we have a JSON HAL document representing an order resource with
+   the URI "/orders/523".  It has "warehouse" and "invoice" links, and
+   its own state in the form of "currency", "status", and "total"
+   properties.
+
+4.  Resource Objects
+
+   A Resource Object represents a resource.
+
+   It has two reserved properties "_links" and "_embedded", which
+   represent Links and Embedded Resources respectively.
+
+   All other properties MUST be valid JSON, and represent the current
+   state of the resource.
+
+4.1.  Links
+
+   The reserved "_links" property is REQUIRED.
+
+   It is an object whose names are link relation types (as defined by
+   [RFC5988]) and values are either a Link Object or an array of Link
+   Objects.  The subject resource of these links is the Resource Object
+   of which the containing "_links" object is a property.
+
+   It MUST have a "self" property whose value is a Link Object who's
+   target SHOULD be the URI of the subject resource.
+
+4.2.  Embedded Resources
+
+   The reserved "_embedded" property is OPTIONAL
+
+   It is an object whose names are link relation types (as defined by
+   [RFC5988]) and values are either a Resource Object or an array of
+   Resource Objects.
+
+
+Kelly                  Expires December 07, 2012                [Page 3]
+
+Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+
+
+5.  Link Objects
+
+   A Link Object represents a hyperlink.  It has the following
+   properties:
+
+5.1.  href
+
+   The "href" property is REQUIRED.
+
+   Its value is either a URI [RFC3986] or a URI Template [RFC6570].
+
+   If the value is a URI Template then the Link Object SHOULD have a
+   "templated" attribute whose value is true.
+
+5.2.  templated
+
+   The "templated" property is OPTIONAL.
+
+   Its value is boolean and SHOULD be true when the Link Object's "href"
+   property is a URI Template.
+
+5.3.  title
+
+   The "title" property is OPTIONAL.
+
+   Its value is a string and is intended for labeling the link with a
+   human-readable identifier (as defined by [RFC5988]).
+
+5.4.  hreflang
+
+   The "hreflang" property is OPTIONAL.
+
+   Its value is a string and is intended for indicating the language of
+   the target resource (as defined by [RFC5988]).
+
+6.  Security Considerations
+
+   TBD
+
+7.  IANA Considerations
+
+   TBD
+
+8.  References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+   [RFC3986]  Berners-Lee, T., Fielding, R. and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66, RFC
+              3986, January 2005.
+
+
+
+Kelly                  Expires December 07, 2012                [Page 4]
+
+Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+
+
+   [RFC4627]  Crockford, D., "The application/json Media Type for
+              JavaScript Object Notation (JSON)", RFC 4627, July 2006.
+
+   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988, October 2010.
+
+   [RFC6570]  Gregorio, J., Fielding, R., Hadley, M., Nottingham, M. and
+              D. Orchard, "URI Template", RFC 6570, March 2012.
+
+Appendix A.  Acknowledgements
+
+   Thanks to Darrel Miller, Mike Amundsen, and everyone in hal-discuss
+   for their suggestions and feedback.
+
+   The author takes all responsibility for errors and omissions.
+
+Appendix B.  Frequently Asked Questions
+
+Appendix B.1.  What about authentication?
+
+   In HTTP, authentication is discoverable by interacting with the
+   resource (usually, by getting a 401 Unauthorized response status
+   code, along with one or more challenges).
+
+Author's Address
+
+   Stateless
+   Stateless
+   
+   Email: mike@stateless.co
+   URI:   http://stateless.co/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kelly                  Expires December 07, 2012                [Page 5]

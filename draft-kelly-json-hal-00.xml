@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE rfc SYSTEM "http://xml.resource.org/authoring/rfc2629.dtd" [
+<!ENTITY rfc2119 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>  
+<!ENTITY rfc3986 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml'>  
+<!ENTITY rfc4627 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4627.xml'>  
+<!ENTITY rfc5988 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml'>  
+<!ENTITY rfc6570 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>  
+]>
+
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc toc="yes" ?>
+<?rfc tocdepth="3" ?>
+<?rfc tocindent="yes" ?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes"?>
+<?rfc iprnotified="no" ?>
+<?rfc strict="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc comments="yes" ?>
+<?rfc inline="yes" ?>
+
+<rfc ipr="trust200902" docName="draft-kelly-json-hal-00" category="info">
+
+  <front>
+
+    <title>JSON Hypertext Application Lanuage</title>
+
+    <author initials="M." surname="Kelly" fullname="Stateless">
+      <organization>Stateless</organization>
+      <address>
+        <email>mike@stateless.co</email> 
+        <uri>http://stateless.co/</uri>
+      </address>
+    </author>
+    <date year="2012"/>
+
+    <abstract>
+      <t>This document proposes a media type for representing resources with hyperlinks.</t>
+    </abstract>
+
+  </front>
+
+  <middle>
+
+    <section title="Introduction">
+
+      <t>There is an emergence of non-HTML HTTP applications ("Web APIs") which use hyperlinks to direct clients around their resources.</t>
+
+      <t>The JSON Hypertext Application Language (HAL) is a standard which establishes conventions for expressing hyperlinks with JSON <xref target="RFC4627"/>.</t>
+
+      <t>HAL is a generic media type with which Web APIs can be developed and exposed as series of links. Clients of these APIs can select links by their link relation type and traverse them in order to progress through the application.</t>
+
+      <t>HAL's conventions result in a uniform interface for serving and consuming hypertext, enabling the creation of general-purpose libraries that can be re-used on any API utilising HAL.</t>
+
+      <t>The primary design goals of HAL are generality and simplicity. HAL can be applied to many different domains, and imposes the minimal amount of structure necessary to cover the key hypertext requirements (links and embedded documents).</t>
+
+    </section>
+
+    <section title="Requirements">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in
+        this document are to be interpreted as described in <xref
+          target="RFC2119"/>.</t>
+    </section>
+
+
+    <section anchor="json-hal-documents" title="JSON HAL Documents">
+
+      <t>A JSON HAL Document uses the format described in <xref target="RFC4627"/> and has the media type "application/hal+json".</t>
+
+      <t>Its root object MUST be a Resource Object.</t>
+
+      <t>For example:</t>
+
+<figure><artwork><![CDATA[
+GET /orders/523 HTTP/1.1
+Host: example.org
+Accept: application/hal+json
+
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+
+{
+  "_links": {
+    "self": { "href": "/orders/523" },
+    "warehouse": { "href": "/warehouse/56" },
+    "invoice": { "href": "/invoices/873" }
+  },
+  "currency": "USD",
+  "status": "shipped",
+  "total": 10.20
+}
+]]></artwork></figure>
+
+      <t>Here, we have a JSON HAL document representing an order resource with the URI "/orders/523".
+        It has "warehouse" and "invoice" links, and its own state in the form of "currency", "status", and "total" properties.</t>
+
+    </section>
+
+    <section anchor="resource-objects" title="Resource Objects">
+
+      <t>A Resource Object represents a resource.</t>
+
+      <t>It has two reserved properties "_links" and "_embedded", which represent Links and Embedded Resources respectively.</t>
+
+      <t>All other properties MUST be valid JSON, and represent the current state of the resource.</t>
+
+      <section anchor="resource-links" title="Links">
+        <t>The reserved "_links" property is REQUIRED.</t>
+        <t>It is an object whose names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Link Object or an array of Link Objects. The subject resource of these links is the Resource Object of which the containing "_links" object is a property.</t>
+        <t>It MUST have a "self" property whose value is a Link Object who's target SHOULD be the URI of the subject resource.</t>
+      </section>
+
+      <section anchor="embedded-resources" title="Embedded Resources">
+        <t>The reserved "_embedded" property is OPTIONAL</t>
+        <t>It is an object whose names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Resource Object or an array of Resource Objects.</t>
+      </section>
+
+    </section>
+
+    <section anchor="link-objects" title="Link Objects">
+
+      <t>A Link Object represents a hyperlink. It has the following properties:</t>
+
+      <section anchor="link-href" title="href">
+        <t>The "href" property is REQUIRED.</t>
+        <t>Its value is either a URI <xref target="RFC3986"/> or a URI Template <xref target="RFC6570"/>.</t>
+        <t>If the value is a URI Template then the Link Object SHOULD have a "templated" attribute whose value is true.</t>
+      </section>
+
+      <section anchor="link-templated" title="templated">
+        <t>The "templated" property is OPTIONAL.</t>
+        <t>Its value is boolean and SHOULD be true when the Link Object's "href" property is a URI Template.</t>
+      </section>
+
+      <section anchor="link-title" title="title">
+        <t>The "title" property is OPTIONAL.</t>
+        <t>Its value is a string and is intended for labeling the link with a human-readable identifier (as defined by <xref target="RFC5988"/>).</t>
+      </section>
+
+      <section anchor="link-hreflang" title="hreflang">
+        <t>The "hreflang" property is OPTIONAL.</t>
+        <t>Its value is a string and is intended for indicating the language of the target resource (as defined by <xref target="RFC5988"/>).</t>
+      </section>
+    </section>
+
+    <section anchor="security-considerations" title="Security Considerations">
+
+      <t>TBD</t>
+
+    </section>
+    <section anchor="iana-considerations" title="IANA Considerations">
+
+      <t>TBD</t>
+
+    </section>
+
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      &rfc2119;
+      &rfc3986;
+      &rfc4627;
+      &rfc5988;
+      &rfc6570;
+    </references>
+
+    <!--<references title="Informative References">-->
+    <!--</references>-->
+
+    <section title="Acknowledgements">
+      <t>Thanks to
+        Darrel Miller, Mike Amundsen, and everyone in hal-discuss
+        for their suggestions and feedback.
+      </t>
+      <t>The author takes all responsibility for errors and omissions.</t>
+    </section>
+
+    <section anchor="frequently-asked-questions" title="Frequently Asked Questions">
+
+      <section anchor="what-about-authentication" title="What about authentication?">
+
+        <t>In HTTP, authentication is discoverable by interacting with the
+          resource (usually, by getting a 401 Unauthorized response status
+          code, along with one or more challenges).</t>
+
+      </section>
+
+    </section>
+  </back>
+</rfc>
