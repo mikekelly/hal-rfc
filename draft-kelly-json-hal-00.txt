@@ -61,7 +61,7 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . . . 3
    2.  Requirements  . . . . . . . . . . . . . . . . . . . . . . . . . 3
-   3.  JSON HAL Documents  . . . . . . . . . . . . . . . . . . . . . . 3
+   3.  HAL Documents . . . . . . . . . . . . . . . . . . . . . . . . . 3
    4.  Resource Objects  . . . . . . . . . . . . . . . . . . . . . . . 4
      4.1.  Links . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
      4.2.  Embedded Resources  . . . . . . . . . . . . . . . . . . . . 5
@@ -70,13 +70,13 @@ Table of Contents
      5.2.  templated . . . . . . . . . . . . . . . . . . . . . . . . . 5
      5.3.  title . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
      5.4.  hreflang  . . . . . . . . . . . . . . . . . . . . . . . . . 5
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . . . 5
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 6
-   8.  Normative References  . . . . . . . . . . . . . . . . . . . . . 6
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . . . 6
-   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . . . 6
-     B.1.  What about authentication?  . . . . . . . . . . . . . . . . 6
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . . . 6
+   6.  Example Document  . . . . . . . . . . . . . . . . . . . . . . . 5
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . . . 7
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 7
+   9.  Normative References  . . . . . . . . . . . . . . . . . . . . . 7
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . . . 7
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . . . 7
+
 
 
 
@@ -144,10 +144,10 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
    document are to be interpreted as described in [RFC2119].
 
 
-3.  JSON HAL Documents
+3.  HAL Documents
 
-   A JSON HAL Document uses the format described in [RFC4627] and has
-   the media type "application/hal+json".
+   A HAL Document uses the format described in [RFC4627] and has the
+   media type "application/hal+json".
 
    Its root object MUST be a Resource Object.
 
@@ -187,9 +187,9 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
      "total": 10.20
    }
 
-   Here, we have a JSON HAL document representing an order resource with
-   the URI "/orders/523".  It has "warehouse" and "invoice" links, and
-   its own state in the form of "currency", "status", and "total"
+   Here, we have a HAL document representing an order resource with the
+   URI "/orders/523".  It has "warehouse" and "invoice" links, and its
+   own state in the form of "currency", "status", and "total"
    properties.
 
 
@@ -270,9 +270,9 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
    the target resource (as defined by [RFC5988]).
 
 
-6.  Security Considerations
+6.  Example Document
 
-   TBD
+   The following is an example document representing a list of orders
 
 
 
@@ -281,12 +281,73 @@ Kelly                   Expires December 9, 2012                [Page 5]
 Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
 
-7.  IANA Considerations
+   GET /orders HTTP/1.1
+   Host: example.org
+   Accept: application/hal+json
+
+   HTTP/1.1 200 OK
+   Content-Type: application/hal+json
+
+   {
+     "_links": {
+       "self": { "href": "/orders" },
+       "next": { "href": "/orders?page=2" },
+       "find": { "href": "/orders{?id}", "templated": true }
+     },
+     "_embedded": {
+       "orders": [{
+           "_links": {
+             "self": { "href": "/orders/123" },
+             "basket": { "href": "/baskets/98712" },
+             "customer": { "href": "/customers/7809" }
+           },
+           "total": 30.00,
+           "currency": "USD",
+           "status": "shipped",
+         },{
+           "_links": {
+             "self": { "href": "/orders/124" },
+             "basket": { "href": "/baskets/97213" },
+             "customer": { "href": "/customers/12369" }
+           },
+           "total": 20.00,
+           "currency": "USD",
+           "status": "processing"
+       }]
+     },
+     currentlyProcessing: 14,
+     shippedToday: 20
+   }
+
+   Here, the order list document provides a "next" link directing to the
+   next page, and a "find" link containing a URI Template which can be
+   expanded with an 'id' variable to go directly to a specific order.
+
+   It also has two embedded resources, "orders".  Each of these has its
+   own links to the associated "basket" and "customer" resources, and
+   properties showing their "total", "currency" and "status".
+
+   Additionally, the order list resource has its own properties
+   "currentlyProcessing" and "shippedToday".
+
+
+
+Kelly                   Expires December 9, 2012                [Page 6]
+
+Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+
+
+7.  Security Considerations
 
    TBD
 
 
-8.  Normative References
+8.  IANA Considerations
+
+   TBD
+
+
+9.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
@@ -312,15 +373,6 @@ Appendix A.  Acknowledgements
    The author takes all responsibility for errors and omissions.
 
 
-Appendix B.  Frequently Asked Questions
-
-B.1.  What about authentication?
-
-   In HTTP, authentication is discoverable by interacting with the
-   resource (usually, by getting a 401 Unauthorized response status
-   code, along with one or more challenges).
-
-
 Author's Address
 
    Stateless
@@ -332,5 +384,9 @@ Author's Address
 
 
 
-Kelly                   Expires December 9, 2012                [Page 6]
+
+
+
+
+Kelly                   Expires December 9, 2012                [Page 7]
 
