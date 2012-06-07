@@ -375,7 +375,7 @@ Appendix A.  Acknowledgements
 
 Author's Address
 
-   Stateless
+   Mike Kelly
    Stateless
 
    Email: mike@stateless.co
