@@ -354,9 +354,9 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
    the disocverability of your API.
 
    The CURIE Syntax MAY be used for brevity for these URIs.  A CURIE is
-   established for the document via a "curie" link on the root Resource
-   Object.  This link contains a URI Template with the token 'rel', and
-   is named via the "name" property of the Link Object.
+   established within a HAL document via a "curie" link on the root
+   Resource Object.  This link contains a URI Template with the token
+   'rel', and is named via the "name" property of the Link Object.
 
    {
      "_links": {

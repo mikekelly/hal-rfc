@@ -196,7 +196,7 @@ Content-Type: application/hal+json
     <section anchor="recommendations" title="Recommendations">
       <section anchor="link-relations" title="Link relations">
         <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the disocverability of your API.</t>
-        <t>The CURIE Syntax MAY be used for brevity for these URIs. A CURIE is established for the document via a "curie" link on the root Resource Object. This link contains a URI Template with the token 'rel', and is named via the "name" property of the Link Object.</t>
+        <t>The CURIE Syntax MAY be used for brevity for these URIs. A CURIE is established within a HAL document via a "curie" link on the root Resource Object. This link contains a URI Template with the token 'rel', and is named via the "name" property of the Link Object.</t>
 
 <figure><artwork><![CDATA[
 {
