@@ -193,13 +193,29 @@ Content-Type: application/hal+json
       <t>Additionally, the order list resource has its own properties "currentlyProcessing" and "shippedToday".</t>
     </section>
 
-    <!--<section anchor="recommendations" title="Recommendations">-->
-      <!--<section anchor="link-relations" title="Link relations">-->
-        <!--<t>Link relation types (names of properties in the "_links" and "_embedded" objects) SHOULD be URIs that can be dereferenced in a browser and provide relevant documentation (in the form of an HTML page) about the nature of the target Resource. This will improve the disocverability of your API.</t>-->
-        <!--<t>The CURIE Syntax MAY be used for brevity for these link relation URIs. CURIEs can be established with a "curies" link on the root Resource Object, and named via the "name" property of the Link.</t>-->
-        <!--..Example..-->
-      <!--</section>-->
-    <!--</section>-->
+    <section anchor="recommendations" title="Recommendations">
+      <section anchor="link-relations" title="Link relations">
+        <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the disocverability of your API.</t>
+        <t>The CURIE Syntax MAY be used for brevity for these URIs. A CURIE is established for the document via a "curie" link on the root Resource Object. This link contains a URI Template with the token 'rel', and is named via the "name" property of the Link Object.</t>
+
+<figure><artwork><![CDATA[
+{
+  "_links": {
+    "self": { "href": "/orders" },
+    "curie": {
+      "name": "acme",
+      "href": "http://docs.acme.com/relations/{rel}",
+      "templated": true
+    },
+    "acme:widgets": { "href": "/widgets" }
+  }
+}
+]]></artwork></figure>
+
+        <t>The above demonstrates the relation "http://docs.acme.com/relations/widgets" being abbreviated to "acme:widgets" via CURIE syntax.</t>
+
+      </section>
+    </section>
 
     <section anchor="security-considerations" title="Security Considerations">
 

@@ -3,8 +3,8 @@
 
 Network Working Group                                           M. Kelly
 Internet-Draft                                                 Stateless
-Intended status: Informational                              June 7, 2012
-Expires: December 9, 2012
+Intended status: Informational                              June 8, 2012
+Expires: December 10, 2012
 
 
                    JSON Hypertext Application Lanuage
@@ -30,7 +30,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 9, 2012.
+   This Internet-Draft will expire on December 10, 2012.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Kelly                   Expires December 9, 2012                [Page 1]
+Kelly                   Expires December 10, 2012               [Page 1]
 
 Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
@@ -70,12 +70,14 @@ Table of Contents
      5.2.  templated . . . . . . . . . . . . . . . . . . . . . . . . . 5
      5.3.  title . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
      5.4.  hreflang  . . . . . . . . . . . . . . . . . . . . . . . . . 5
-   6.  Example Document  . . . . . . . . . . . . . . . . . . . . . . . 5
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . . . 7
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 7
-   9.  Normative References  . . . . . . . . . . . . . . . . . . . . . 7
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . . . 7
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . . . 7
+   6.  Example Document  . . . . . . . . . . . . . . . . . . . . . . . 6
+   7.  Recommendations . . . . . . . . . . . . . . . . . . . . . . . . 7
+     7.1.  Link relations  . . . . . . . . . . . . . . . . . . . . . . 7
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . . . 7
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 7
+   10. Normative References  . . . . . . . . . . . . . . . . . . . . . 8
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . . . 8
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . . . 8
 
 
 
@@ -106,9 +108,7 @@ Table of Contents
 
 
 
-
-
-Kelly                   Expires December 9, 2012                [Page 2]
+Kelly                   Expires December 10, 2012               [Page 2]
 
 Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
@@ -164,7 +164,7 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
 
 
-Kelly                   Expires December 9, 2012                [Page 3]
+Kelly                   Expires December 10, 2012               [Page 3]
 
 Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
@@ -220,7 +220,7 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
 
 
-Kelly                   Expires December 9, 2012                [Page 4]
+Kelly                   Expires December 10, 2012               [Page 4]
 
 Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
@@ -255,6 +255,9 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
    Its value is boolean and SHOULD be true when the Link Object's "href"
    property is a URI Template.
 
+   Its value SHOULD be considered false if it is undefined or any other
+   value than true.
+
 5.3.  title
 
    The "title" property is OPTIONAL.
@@ -270,16 +273,17 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
    the target resource (as defined by [RFC5988]).
 
 
-6.  Example Document
-
-   The following is an example document representing a list of orders
 
 
 
-Kelly                   Expires December 9, 2012                [Page 5]
+Kelly                   Expires December 10, 2012               [Page 5]
 
 Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
+
+6.  Example Document
+
+   The following is an example document representing a list of orders
 
    GET /orders HTTP/1.1
    Host: example.org
@@ -325,29 +329,71 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
    It also has two embedded resources, "orders".  Each of these has its
    own links to the associated "basket" and "customer" resources, and
+
+
+
+Kelly                   Expires December 10, 2012               [Page 6]
+
+Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+
+
    properties showing their "total", "currency" and "status".
 
    Additionally, the order list resource has its own properties
    "currentlyProcessing" and "shippedToday".
 
 
+7.  Recommendations
 
-Kelly                   Expires December 9, 2012                [Page 6]
+7.1.  Link relations
+
+   Custom link relation types (Extension Relation Types in [RFC5988])
+   SHOULD be URIs that when dereferenced in a web browser provide
+   relevant documentation, in the form of an HTML page, about the
+   meaning and/or behaviour of the target Resource.  This will improve
+   the disocverability of your API.
+
+   The CURIE Syntax MAY be used for brevity for these URIs.  A CURIE is
+   established for the document via a "curie" link on the root Resource
+   Object.  This link contains a URI Template with the token 'rel', and
+   is named via the "name" property of the Link Object.
+
+   {
+     "_links": {
+       "self": { "href": "/orders" },
+       "curie": {
+         "name": "acme",
+         "href": "http://docs.acme.com/relations/{rel}",
+         "templated": true
+       },
+       "acme:widgets": { "href": "/widgets" }
+     }
+   }
+
+   The above demonstrates the relation
+   "http://docs.acme.com/relations/widgets" being abbreviated to "acme:
+   widgets" via CURIE syntax.
+
+
+8.  Security Considerations
+
+   TBD
+
+
+9.  IANA Considerations
+
+   TBD
+
+
+
+
+
+Kelly                   Expires December 10, 2012               [Page 7]
 
 Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
 
-7.  Security Considerations
-
-   TBD
-
-
-8.  IANA Considerations
-
-   TBD
-
-
-9.  Normative References
+10.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
@@ -388,5 +434,15 @@ Author's Address
 
 
 
-Kelly                   Expires December 9, 2012                [Page 7]
+
+
+
+
+
+
+
+
+
+
+Kelly                   Expires December 10, 2012               [Page 8]
 
