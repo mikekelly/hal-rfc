@@ -7,7 +7,7 @@ Intended status: Informational                              June 8, 2012
 Expires: December 10, 2012
 
 
-                   JSON Hypertext Application Lanuage
+                  JSON Hypertext Application Language
                         draft-kelly-json-hal-00
 
 Abstract
@@ -54,7 +54,7 @@ Copyright Notice
 
 Kelly                   Expires December 10, 2012               [Page 1]
 
-Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 Table of Contents
@@ -110,7 +110,7 @@ Table of Contents
 
 Kelly                   Expires December 10, 2012               [Page 2]
 
-Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 1.  Introduction
@@ -166,7 +166,7 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
 Kelly                   Expires December 10, 2012               [Page 3]
 
-Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
    GET /orders/523 HTTP/1.1
@@ -222,7 +222,7 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
 Kelly                   Expires December 10, 2012               [Page 4]
 
-Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 4.2.  Embedded Resources
@@ -278,7 +278,7 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
 Kelly                   Expires December 10, 2012               [Page 5]
 
-Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 6.  Example Document
@@ -334,7 +334,7 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
 Kelly                   Expires December 10, 2012               [Page 6]
 
-Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
    properties showing their "total", "currency" and "status".
@@ -390,7 +390,7 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
 
 Kelly                   Expires December 10, 2012               [Page 7]
 
-Internet-Draft     JSON Hypertext Application Lanuage          June 2012
+Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 10.  Normative References
