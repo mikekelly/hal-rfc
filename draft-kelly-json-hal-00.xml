@@ -183,8 +183,8 @@ Content-Type: application/hal+json
         "status": "processing"
     }]
   },
-  currentlyProcessing: 14,
-  shippedToday: 20
+  "currentlyProcessing": 14,
+  "shippedToday": 20
 }
 ]]></artwork></figure>
 

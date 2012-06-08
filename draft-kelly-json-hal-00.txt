@@ -319,8 +319,8 @@ Internet-Draft     JSON Hypertext Application Lanuage          June 2012
            "status": "processing"
        }]
      },
-     currentlyProcessing: 14,
-     shippedToday: 20
+     "currentlyProcessing": 14,
+     "shippedToday": 20
    }
 
    Here, the order list document provides a "next" link directing to the
