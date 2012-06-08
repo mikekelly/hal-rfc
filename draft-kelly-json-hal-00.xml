@@ -131,6 +131,7 @@ Content-Type: application/hal+json
       <section anchor="link-templated" title="templated">
         <t>The "templated" property is OPTIONAL.</t>
         <t>Its value is boolean and SHOULD be true when the Link Object's "href" property is a URI Template.</t>
+        <t>Its value SHOULD be considered false if it is undefined or any other value than true.</t>
       </section>
 
       <section anchor="link-title" title="title">
