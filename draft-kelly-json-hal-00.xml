@@ -107,13 +107,13 @@ Content-Type: application/hal+json
 
       <section anchor="resource-links" title="Links">
         <t>The reserved "_links" property is REQUIRED.</t>
-        <t>It is an object whose names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Link Object or an array of Link Objects. The subject resource of these links is the Resource Object of which the containing "_links" object is a property.</t>
+        <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Link Object or an array of Link Objects. The subject resource of these links is the Resource Object of which the containing "_links" object is a property.</t>
         <t>It MUST have a "self" property whose value is a Link Object who's target SHOULD be the URI of the subject resource.</t>
       </section>
 
       <section anchor="embedded-resources" title="Embedded Resources">
         <t>The reserved "_embedded" property is OPTIONAL</t>
-        <t>It is an object whose names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Resource Object or an array of Resource Objects.</t>
+        <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Resource Object or an array of Resource Objects.</t>
       </section>
 
     </section>
@@ -251,7 +251,7 @@ Content-Type: application/hal+json
       <t>The author takes all responsibility for errors and omissions.</t>
     </section>
 
-    <!--<section anchor="frequently-asked-questions" title="Frequently Asked Questions">-->
+    <section anchor="frequently-asked-questions" title="Frequently Asked Questions">
 
       <!--<section anchor="what-about-authentication" title="What about authentication?">-->
 
@@ -267,7 +267,27 @@ Content-Type: application/hal+json
         <!--<t>Consider 'profile' link if rels + context are insufficient.</t>-->
       <!--</section>-->
 
-    <!--</section>-->
+      <section title="Where can I find libraries for working with HAL?">
+        <t>A list of libraries is maintained and published here: http://stateless.co/hal_specification.html</t>
+      </section>
+
+      <section title="I'm concerned about collisions with your reserved properties">
+        <t>Drop your resource state into a 'data' or a 'state' property</t>
+      </section>
+
+      <section title="Are all underscore prefixed properties reserved?">
+        <t>No, HAL only reserves the names detailed in this specification.</t>
+      </section>
+
+      <section title="Why did you use underscores?">
+        <t>We had to pick a prefix character to minimize risk of collisions with resource properties, and underscore was the character picked.</t>
+      </section>
+
+      <section title="Why does HAL have no forms?">
+        <t>Omitting forms from HAL was an intentional design descision that was made to keep it focused on linking (and embedding). HAL is therefore a good candidate for use as a base media type on which to build more complex capabilities. An additional media type is planned for the future which will add form-like controls on top of HAL.</t>
+      </section>
+
+    </section>
 
   </back>
 </rfc>

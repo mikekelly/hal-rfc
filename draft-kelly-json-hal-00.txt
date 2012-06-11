@@ -3,8 +3,8 @@
 
 Network Working Group                                           M. Kelly
 Internet-Draft                                                 Stateless
-Intended status: Informational                              June 8, 2012
-Expires: December 10, 2012
+Intended status: Informational                             June 12, 2012
+Expires: December 14, 2012
 
 
                   JSON Hypertext Application Language
@@ -30,7 +30,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 10, 2012.
+   This Internet-Draft will expire on December 14, 2012.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Kelly                   Expires December 10, 2012               [Page 1]
+Kelly                   Expires December 14, 2012               [Page 1]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -77,7 +77,14 @@ Table of Contents
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 7
    10. Normative References  . . . . . . . . . . . . . . . . . . . . . 8
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . . . 8
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . . . 8
+   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . . . 8
+     B.1.  Where can I find libraries for working with HAL?  . . . . . 8
+     B.2.  I'm concerned about collisions with your reserved
+           properties  . . . . . . . . . . . . . . . . . . . . . . . . 8
+     B.3.  Are all underscore prefixed properties reserved?  . . . . . 8
+     B.4.  Why did you use underscores?  . . . . . . . . . . . . . . . 8
+     B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . . . 9
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . . . 9
 
 
 
@@ -101,14 +108,7 @@ Table of Contents
 
 
 
-
-
-
-
-
-
-
-Kelly                   Expires December 10, 2012               [Page 2]
+Kelly                   Expires December 14, 2012               [Page 2]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -164,7 +164,7 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 
-Kelly                   Expires December 10, 2012               [Page 3]
+Kelly                   Expires December 14, 2012               [Page 3]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -207,10 +207,10 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
    The reserved "_links" property is REQUIRED.
 
-   It is an object whose names are link relation types (as defined by
-   [RFC5988]) and values are either a Link Object or an array of Link
-   Objects.  The subject resource of these links is the Resource Object
-   of which the containing "_links" object is a property.
+   It is an object whose property names are link relation types (as
+   defined by [RFC5988]) and values are either a Link Object or an array
+   of Link Objects.  The subject resource of these links is the Resource
+   Object of which the containing "_links" object is a property.
 
    It MUST have a "self" property whose value is a Link Object who's
    target SHOULD be the URI of the subject resource.
@@ -220,7 +220,7 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 
-Kelly                   Expires December 10, 2012               [Page 4]
+Kelly                   Expires December 14, 2012               [Page 4]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -229,9 +229,9 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
    The reserved "_embedded" property is OPTIONAL
 
-   It is an object whose names are link relation types (as defined by
-   [RFC5988]) and values are either a Resource Object or an array of
-   Resource Objects.
+   It is an object whose property names are link relation types (as
+   defined by [RFC5988]) and values are either a Resource Object or an
+   array of Resource Objects.
 
 
 5.  Link Objects
@@ -276,7 +276,7 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 
-Kelly                   Expires December 10, 2012               [Page 5]
+Kelly                   Expires December 14, 2012               [Page 5]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -332,7 +332,7 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 
-Kelly                   Expires December 10, 2012               [Page 6]
+Kelly                   Expires December 14, 2012               [Page 6]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -388,7 +388,7 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 
-Kelly                   Expires December 10, 2012               [Page 7]
+Kelly                   Expires December 14, 2012               [Page 7]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -419,6 +419,45 @@ Appendix A.  Acknowledgements
    The author takes all responsibility for errors and omissions.
 
 
+Appendix B.  Frequently Asked Questions
+
+B.1.  Where can I find libraries for working with HAL?
+
+   A list of libraries is maintained and published here:
+   http://stateless.co/hal_specification.html
+
+B.2.  I'm concerned about collisions with your reserved properties
+
+   Drop your resource state into a 'data' or a 'state' property
+
+B.3.  Are all underscore prefixed properties reserved?
+
+   No, HAL only reserves the names detailed in this specification.
+
+B.4.  Why did you use underscores?
+
+   We had to pick a prefix character to minimize risk of collisions with
+   resource properties, and underscore was the character picked.
+
+
+
+
+
+
+Kelly                   Expires December 14, 2012               [Page 8]
+
+Internet-Draft     JSON Hypertext Application Language         June 2012
+
+
+B.5.  Why does HAL have no forms?
+
+   Omitting forms from HAL was an intentional design descision that was
+   made to keep it focused on linking (and embedding).  HAL is therefore
+   a good candidate for use as a base media type on which to build more
+   complex capabilities.  An additional media type is planned for the
+   future which will add form-like controls on top of HAL.
+
+
 Author's Address
 
    Mike Kelly
@@ -444,5 +483,22 @@ Author's Address
 
 
 
-Kelly                   Expires December 10, 2012               [Page 8]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kelly                   Expires December 14, 2012               [Page 9]
 
