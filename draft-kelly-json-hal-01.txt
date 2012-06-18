@@ -8,7 +8,7 @@ Expires: December 21, 2012
 
 
                   JSON Hypertext Application Language
-                        draft-kelly-json-hal-00
+                        draft-kelly-json-hal-01
 
 Abstract
 
