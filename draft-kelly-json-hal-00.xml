@@ -6,6 +6,8 @@
 <!ENTITY rfc4627 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4627.xml'>
 <!ENTITY rfc5988 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml'>
 <!ENTITY rfc6570 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>
+<!ENTITY NOTE-curie SYSTEM 'http://xml.resource.org/public/rfc/bibxml4/reference.W3C.NOTE-curie-20101216.xml'>
+<!ENTITY wilde-profile-link SYSTEM 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.wilde-profile-link.xml'>
 ]>
 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -193,10 +195,16 @@ Content-Type: application/hal+json
       <t>Additionally, the order list resource has its own properties "currentlyProcessing" and "shippedToday".</t>
     </section>
 
+    <section anchor="media-type-parameters" title="Media Type Parameters">
+      <section anchor="profile-parmeter" title="profile">
+        <t>The media type identifier application/hal+json MAY also include an additional "profile" parameter (as defined by <xref target="I-D.wilde-profile-link" />)</t>
+      </section>
+    </section>
+
     <section anchor="recommendations" title="Recommendations">
       <section anchor="link-relations" title="Link relations">
         <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the disocverability of your API.</t>
-        <t>The CURIE Syntax MAY be used for brevity for these URIs. A CURIE is established within a HAL document via a "curie" link on the root Resource Object. This link contains a URI Template with the token 'rel', and is named via the "name" property of the Link Object.</t>
+        <t>The CURIE Syntax <xref target="W3C.NOTE-curie-20101216" /> MAY be used for brevity for these URIs. A CURIE is established within a HAL document via a "curie" link on the root Resource Object. This link contains a URI Template with the token 'rel', and is named via the "name" property of the Link Object.</t>
 
 <figure><artwork><![CDATA[
 {
@@ -238,6 +246,8 @@ Content-Type: application/hal+json
       &rfc4627;
       &rfc5988;
       &rfc6570;
+      &wilde-profile-link;
+      &NOTE-curie;
     </references>
 
     <!--<references title="Informative References">-->
@@ -253,38 +263,32 @@ Content-Type: application/hal+json
 
     <section anchor="frequently-asked-questions" title="Frequently Asked Questions">
 
-      <!--<section anchor="what-about-authentication" title="What about authentication?">-->
-
-        <!--<t>In HTTP, authentication is discoverable by interacting with the-->
-          <!--resource (usually, by getting a 401 Unauthorized response status-->
-          <!--code, along with one or more challenges).</t>-->
-
-      <!--</section>-->
-
-      <!--<section anchor="how-does-a-client-know-type-of-resource" title="How Does A Client Know What Type of Resource The Document Represents">-->
-        <!--<t>Preceding link relation provides context.</t>-->
-        <!--<t>Exception to this is entry points.</t>-->
-        <!--<t>Consider 'profile' link if rels + context are insufficient.</t>-->
-      <!--</section>-->
+      <section anchor="how-should-a-client-know-structure-of-resource" title="How should a client know the meaning/structure/semantics/type of a resource?">
+        <t>There are two main approaches to solving this problem.
+          Both involve exposing additional documentation describing the resource which may be human and/or machine readable (i.e. an HTML page and/or a JSON Schema document).
+          The difference between the two approaches is in where that URI is shared with the client, which is either:
+          <list style="format (%d)">
+            <t>The URI that was the preceding link relation type.</t>
+            <t>A 'profile' link from the resource itself.</t>
+          </list>
+        </t>
+      </section>
 
       <section title="Where can I find libraries for working with HAL?">
-        <t>A list of libraries is maintained and published here: http://stateless.co/hal_specification.html</t>
+        <t>A list of libraries is maintained and published at the <eref target="http://stateless.co/hal_specification.html">HAL Home Page</eref></t>
       </section>
 
-      <section title="I'm concerned about collisions with your reserved properties">
-        <t>Drop your resource state into a 'data' or a 'state' property</t>
+      <section title="Why are the reserved properties prefixed with an underscore?">
+        <t>We elected for a prefix character to minimize risk of collisions with properties that represent the resource's state, and underscore was the character picked.</t>
+        <t>Another reason for prefixing the reserved properties is to make it visually apparent that the reserved properties are distinct from standard properties belonging to the resource.</t>
       </section>
 
-      <section title="Are all underscore prefixed properties reserved?">
+      <section title="Are all underscore-prefixed properties reserved?">
         <t>No, HAL only reserves the names detailed in this specification.</t>
       </section>
 
-      <section title="Why did you use underscores?">
-        <t>We had to pick a prefix character to minimize risk of collisions with resource properties, and underscore was the character picked.</t>
-      </section>
-
       <section title="Why does HAL have no forms?">
-        <t>Omitting forms from HAL was an intentional design descision that was made to keep it focused on linking (and embedding). HAL is therefore a good candidate for use as a base media type on which to build more complex capabilities. An additional media type is planned for the future which will add form-like controls on top of HAL.</t>
+        <t>Omitting forms from HAL was an intentional design descision that was made to keep it focused on linking for APIs. HAL is therefore a good candidate for use as a base media type on which to build more complex capabilities. An additional media type is planned for the future which will add form-like controls on top of HAL.</t>
       </section>
 
     </section>

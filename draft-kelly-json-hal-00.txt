@@ -3,8 +3,8 @@
 
 Network Working Group                                           M. Kelly
 Internet-Draft                                                 Stateless
-Intended status: Informational                             June 12, 2012
-Expires: December 14, 2012
+Intended status: Informational                             June 19, 2012
+Expires: December 21, 2012
 
 
                   JSON Hypertext Application Language
@@ -30,7 +30,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 14, 2012.
+   This Internet-Draft will expire on December 21, 2012.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Kelly                   Expires December 14, 2012               [Page 1]
+Kelly                   Expires December 21, 2012               [Page 1]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -71,18 +71,21 @@ Table of Contents
      5.3.  title . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
      5.4.  hreflang  . . . . . . . . . . . . . . . . . . . . . . . . . 5
    6.  Example Document  . . . . . . . . . . . . . . . . . . . . . . . 6
-   7.  Recommendations . . . . . . . . . . . . . . . . . . . . . . . . 7
-     7.1.  Link relations  . . . . . . . . . . . . . . . . . . . . . . 7
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . . . 7
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 7
-   10. Normative References  . . . . . . . . . . . . . . . . . . . . . 8
+   7.  Media Type Parameters . . . . . . . . . . . . . . . . . . . . . 7
+     7.1.  profile . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+   8.  Recommendations . . . . . . . . . . . . . . . . . . . . . . . . 7
+     8.1.  Link relations  . . . . . . . . . . . . . . . . . . . . . . 7
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . . . 8
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 8
+   11. Normative References  . . . . . . . . . . . . . . . . . . . . . 8
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . . . 8
-   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . . . 8
-     B.1.  Where can I find libraries for working with HAL?  . . . . . 8
-     B.2.  I'm concerned about collisions with your reserved
-           properties  . . . . . . . . . . . . . . . . . . . . . . . . 8
-     B.3.  Are all underscore prefixed properties reserved?  . . . . . 8
-     B.4.  Why did you use underscores?  . . . . . . . . . . . . . . . 8
+   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . . . 9
+     B.1.  How should a client know the
+           meaning/structure/semantics/type of a resource? . . . . . . 9
+     B.2.  Where can I find libraries for working with HAL?  . . . . . 9
+     B.3.  Why are the reserved properties prefixed with an
+           underscore? . . . . . . . . . . . . . . . . . . . . . . . . 9
+     B.4.  Are all underscore-prefixed properties reserved?  . . . . . 9
      B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . . . 9
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . . . 9
 
@@ -105,10 +108,7 @@ Table of Contents
 
 
 
-
-
-
-Kelly                   Expires December 14, 2012               [Page 2]
+Kelly                   Expires December 21, 2012               [Page 2]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -164,7 +164,7 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 
-Kelly                   Expires December 14, 2012               [Page 3]
+Kelly                   Expires December 21, 2012               [Page 3]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -220,7 +220,7 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 
-Kelly                   Expires December 14, 2012               [Page 4]
+Kelly                   Expires December 21, 2012               [Page 4]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -276,7 +276,7 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 
-Kelly                   Expires December 14, 2012               [Page 5]
+Kelly                   Expires December 21, 2012               [Page 5]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -332,7 +332,7 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 
-Kelly                   Expires December 14, 2012               [Page 6]
+Kelly                   Expires December 21, 2012               [Page 6]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
@@ -343,9 +343,18 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
    "currentlyProcessing" and "shippedToday".
 
 
-7.  Recommendations
+7.  Media Type Parameters
 
-7.1.  Link relations
+7.1.  profile
+
+   The media type identifier application/hal+json MAY also include an
+   additional "profile" parameter (as defined by
+   [I-D.wilde-profile-link])
+
+
+8.  Recommendations
+
+8.1.  Link relations
 
    Custom link relation types (Extension Relation Types in [RFC5988])
    SHOULD be URIs that when dereferenced in a web browser provide
@@ -353,10 +362,11 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
    meaning and/or behaviour of the target Resource.  This will improve
    the disocverability of your API.
 
-   The CURIE Syntax MAY be used for brevity for these URIs.  A CURIE is
-   established within a HAL document via a "curie" link on the root
-   Resource Object.  This link contains a URI Template with the token
-   'rel', and is named via the "name" property of the Link Object.
+   The CURIE Syntax [W3C.NOTE-curie-20101216] MAY be used for brevity
+   for these URIs.  A CURIE is established within a HAL document via a
+   "curie" link on the root Resource Object.  This link contains a URI
+   Template with the token 'rel', and is named via the "name" property
+   of the Link Object.
 
    {
      "_links": {
@@ -375,25 +385,29 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
    widgets" via CURIE syntax.
 
 
-8.  Security Considerations
-
-   TBD
-
-
-9.  IANA Considerations
-
-   TBD
 
 
 
-
-
-Kelly                   Expires December 14, 2012               [Page 7]
+Kelly                   Expires December 21, 2012               [Page 7]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
-10.  Normative References
+9.  Security Considerations
+
+   TBD
+
+
+10.  IANA Considerations
+
+   TBD
+
+
+11.  Normative References
+
+   [I-D.wilde-profile-link]
+              Wilde, E., "The 'profile' Link Relation Type",
+              draft-wilde-profile-link-02 (work in progress), June 2012.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
@@ -410,6 +424,14 @@ Internet-Draft     JSON Hypertext Application Language         June 2012
    [RFC6570]  Gregorio, J., Fielding, R., Hadley, M., Nottingham, M.,
               and D. Orchard, "URI Template", RFC 6570, March 2012.
 
+   [W3C.NOTE-curie-20101216]
+              McCarron, S. and M. Birbeck, "CURIE Syntax 1.0", World
+              Wide Web Consortium NOTE NOTE-curie-20101216,
+              December 2010,
+              <http://www.w3.org/TR/2010/NOTE-curie-20101216>.
+
+   [1]  <http://stateless.co/hal_specification.html>
+
 
 Appendix A.  Acknowledgements
 
@@ -419,43 +441,68 @@ Appendix A.  Acknowledgements
    The author takes all responsibility for errors and omissions.
 
 
-Appendix B.  Frequently Asked Questions
-
-B.1.  Where can I find libraries for working with HAL?
-
-   A list of libraries is maintained and published here:
-   http://stateless.co/hal_specification.html
-
-B.2.  I'm concerned about collisions with your reserved properties
-
-   Drop your resource state into a 'data' or a 'state' property
-
-B.3.  Are all underscore prefixed properties reserved?
-
-   No, HAL only reserves the names detailed in this specification.
-
-B.4.  Why did you use underscores?
-
-   We had to pick a prefix character to minimize risk of collisions with
-   resource properties, and underscore was the character picked.
 
 
 
-
-
-
-Kelly                   Expires December 14, 2012               [Page 8]
+Kelly                   Expires December 21, 2012               [Page 8]
 
 Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
+Appendix B.  Frequently Asked Questions
+
+B.1.  How should a client know the meaning/structure/semantics/type of a
+      resource?
+
+   There are two main approaches to solving this problem.  Both involve
+   exposing additional documentation describing the resource which may
+   be human and/or machine readable (i.e. an HTML page and/or a JSON
+   Schema document).  The difference between the two approaches is in
+   where that URI is shared with the client, which is either:
+   (1)  The URI that was the preceding link relation type.
+   (2)  A 'profile' link from the resource itself.
+
+B.2.  Where can I find libraries for working with HAL?
+
+   A list of libraries is maintained and published at the HAL Home
+   Page [1]
+
+B.3.  Why are the reserved properties prefixed with an underscore?
+
+   We elected for a prefix character to minimize risk of collisions with
+   properties that represent the resource's state, and underscore was
+   the character picked.
+
+   Another reason for prefixing the reserved properties is to make it
+   visually apparent that the reserved properties are distinct from
+   standard properties belonging to the resource.
+
+B.4.  Are all underscore-prefixed properties reserved?
+
+   No, HAL only reserves the names detailed in this specification.
+
 B.5.  Why does HAL have no forms?
 
    Omitting forms from HAL was an intentional design descision that was
-   made to keep it focused on linking (and embedding).  HAL is therefore
-   a good candidate for use as a base media type on which to build more
-   complex capabilities.  An additional media type is planned for the
-   future which will add form-like controls on top of HAL.
+   made to keep it focused on linking for APIs.  HAL is therefore a good
+   candidate for use as a base media type on which to build more complex
+   capabilities.  An additional media type is planned for the future
+   which will add form-like controls on top of HAL.
+
+
+
+
+
+
+
+
+
+
+
+
+Kelly                   Expires December 21, 2012               [Page 9]
+
+Internet-Draft     JSON Hypertext Application Language         June 2012
 
 
 Author's Address
@@ -500,5 +547,14 @@ Author's Address
 
 
 
-Kelly                   Expires December 14, 2012               [Page 9]
+
+
+
+
+
+
+
+
+
+Kelly                   Expires December 21, 2012              [Page 10]
 
