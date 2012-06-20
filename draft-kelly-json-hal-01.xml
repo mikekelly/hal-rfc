@@ -138,7 +138,7 @@ Content-Type: application/hal+json
 
       <section anchor="link-title" title="title">
         <t>The "title" property is OPTIONAL.</t>
-        <t>Its value is a string and is intended for labeling the link with a human-readable identifier (as defined by <xref target="RFC5988"/>).</t>
+        <t>Its value is a string and is intended for labelling the link with a human-readable identifier (as defined by <xref target="RFC5988"/>).</t>
       </section>
 
       <section anchor="link-hreflang" title="hreflang">
@@ -203,7 +203,7 @@ Content-Type: application/hal+json
 
     <section anchor="recommendations" title="Recommendations">
       <section anchor="link-relations" title="Link relations">
-        <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the disocverability of your API.</t>
+        <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the discoverability of the API.</t>
         <t>The CURIE Syntax <xref target="W3C.NOTE-curie-20101216" /> MAY be used for brevity for these URIs. A CURIE is established within a HAL document via a "curie" link on the root Resource Object. This link contains a URI Template with the token 'rel', and is named via the "name" property of the Link Object.</t>
 
 <figure><artwork><![CDATA[
@@ -288,7 +288,7 @@ Content-Type: application/hal+json
       </section>
 
       <section title="Why does HAL have no forms?">
-        <t>Omitting forms from HAL was an intentional design descision that was made to keep it focused on linking for APIs. HAL is therefore a good candidate for use as a base media type on which to build more complex capabilities. An additional media type is planned for the future which will add form-like controls on top of HAL.</t>
+        <t>Omitting forms from HAL was an intentional design dicison that was made to keep it focused on linking for APIs. HAL is therefore a good candidate for use as a base media type on which to build more complex capabilities. An additional media type is planned for the future which will add form-like controls on top of HAL.</t>
       </section>
 
     </section>
