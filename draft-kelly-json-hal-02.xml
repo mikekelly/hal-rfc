@@ -38,7 +38,7 @@
     <date year="2012"/>
 
     <abstract>
-      <t>This document proposes a media type for representing resources with hyperlinks.</t>
+      <t>This document proposes a media type for representing resources and their relations via hyperlinks.</t>
     </abstract>
 
   </front>
@@ -47,9 +47,9 @@
 
     <section title="Introduction">
 
-      <t>There is an emergence of non-HTML HTTP applications ("Web APIs") which use hyperlinks to direct clients around their resources.</t>
+      <t>There is an emergence of non-HTML HTTP applications ("Web APIs") which use hypermedia to direct clients around their resources.</t>
 
-      <t>The JSON Hypermedia API Language (HAL) is a standard which establishes conventions for expressing hyperlinks with JSON <xref target="RFC4627"/>.</t>
+      <t>The JSON Hypermedia API Language (HAL) is a standard which establishes conventions for expressing hypermedia controls, such as links, with JSON <xref target="RFC4627"/>.</t>
 
       <t>HAL is a generic media type with which Web APIs can be developed and exposed as series of links. Clients of these APIs can select links by their link relation type and traverse them in order to progress through the application.</t>
 
@@ -116,14 +116,15 @@ Content-Type: application/hal+json
 
       <section anchor="resource-reserved-properties" title="Reserved Properties">
         <section anchor="resource-self" title="_self">
-          <t>The reserved "_self" property is REQUIRED.</t>
+          <t>The reserved "_self" property is OPTIONAL.</t>
           <t>Its value is a string that is the URI of the resource.</t>
-          <t>This semantics of this link are equivalent to the standard 'self' relation (as defined by <xref target="RFC5988"/>)</t>
+          <t>It represents a link with a relation equivalent to the standard 'self' relation type (as defined by <xref target="RFC5988"/>)</t>
         </section>
 
         <section anchor="resource-links" title="_links">
           <t>The reserved "_links" property is OPTIONAL.</t>
           <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Link Object or an array of Link Objects. The subject resource of these links is the Resource Object of which the containing "_links" object is a property.</t>
+          <t>It SHOULD NOT be used for a 'self' relation, the reserved "_self" property SHOULD be used instead.</t>
         </section>
 
         <section anchor="embedded-resources" title="_embedded">
@@ -212,6 +213,7 @@ Content-Type: application/hal+json
     <section anchor="media-type-parameters" title="Media Type Parameters">
       <section anchor="profile-parmeter" title="profile">
         <t>The media type identifier application/hal+json MAY also include an additional "profile" parameter (as defined by <xref target="I-D.wilde-profile-link" />)</t>
+        <t>HAL documents that are served with the "profile" parameter still SHOULD include a "profile" link belonging to the root resource.</t>
       </section>
     </section>
 
