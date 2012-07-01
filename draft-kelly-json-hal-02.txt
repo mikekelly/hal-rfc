@@ -8,7 +8,7 @@ Expires: January 2, 2013
 
 
                       JSON Hypermedia API Language
-                        draft-kelly-json-hal-01
+                        draft-kelly-json-hal-02
 
 Abstract
 
