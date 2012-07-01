@@ -146,7 +146,17 @@ Content-Type: application/hal+json
 
       <section anchor="link-type" title="type">
         <t>The "type" property is OPTIONAL.</t>
-        <t>Its value is a hint indicating the media type expected when dereferencing the target URI.</t>
+        <t>Its value is a string used as a hint to indicate the media type expected when dereferencing the target resource.</t>
+      </section>
+
+      <section anchor="link-name" title="name">
+        <t>The "name" property is OPTIONAL.</t>
+        <t>Its value SHOULD be used as a secondary key for selecting Link Objects which share the same relation type.</t>
+      </section>
+
+      <section anchor="link-profile" title="profile">
+        <t>The "profile" property is OPTIONAL.</t>
+        <t>Its value is a string which is a URI that hints about the profile (as defined by <xref target="I-D.wilde-profile-link" />) of the target resource.</t>
       </section>
 
       <section anchor="link-title" title="title">
