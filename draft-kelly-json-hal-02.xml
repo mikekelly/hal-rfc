@@ -117,7 +117,6 @@ Content-Type: application/hal+json
         <section anchor="resource-links" title="_links">
           <t>The reserved "_links" property is OPTIONAL.</t>
           <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Link Object or an array of Link Objects. The subject resource of these links is the Resource Object of which the containing "_links" object is a property.</t>
-          <t>It SHOULD NOT be used for a 'self' relation, the reserved "_self" property SHOULD be used instead.</t>
         </section>
 
         <section anchor="embedded-resources" title="_embedded">
