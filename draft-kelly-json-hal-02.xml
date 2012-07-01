@@ -217,7 +217,7 @@ Content-Type: application/hal+json
 
     <section anchor="recommendations" title="Recommendations">
       <section anchor="self-link" title="Self Link">
-        <t>Each Resource Object SHOULD contain a 'self' link that corresponds with the IANA registered 'self' relation (as defined by <xref target="RFC5988"/>) who's target is the resource's URI.</t>
+        <t>Each Resource Object SHOULD contain a 'self' link that corresponds with the IANA registered 'self' relation (as defined by <xref target="RFC5988"/>) whose target is the resource's URI.</t>
       </section>
 
       <section anchor="link-relations" title="Link relations">
