@@ -83,7 +83,6 @@ HTTP/1.1 200 OK
 Content-Type: application/hal+json
 
 {
-  "_self": "/orders/523",
   "_links": {
     "self": { "href": "/orders/523" },
     "warehouse": { "href": "/warehouse/56" },
@@ -104,9 +103,8 @@ Content-Type: application/hal+json
 
       <t>A Resource Object represents a resource.</t>
 
-      <t>It has three reserved properties:
+      <t>It has two reserved properties:
         <list style="format (%d)">
-          <t>"_self": the self URI.</t>
           <t>"_links": contains links to other resources.</t>
           <t>"_embedded": contains embedded resources.</t>
         </list>
@@ -115,11 +113,6 @@ Content-Type: application/hal+json
       <t>All other properties MUST be valid JSON, and represent the current state of the resource.</t>
 
       <section anchor="resource-reserved-properties" title="Reserved Properties">
-        <section anchor="resource-self" title="_self">
-          <t>The reserved "_self" property is OPTIONAL.</t>
-          <t>Its value is a string that is the URI of the resource.</t>
-          <t>It represents a link with a relation equivalent to the standard 'self' relation type (as defined by <xref target="RFC5988"/>)</t>
-        </section>
 
         <section anchor="resource-links" title="_links">
           <t>The reserved "_links" property is OPTIONAL.</t>
@@ -151,6 +144,11 @@ Content-Type: application/hal+json
         <t>Its value SHOULD be considered false if it is undefined or any other value than true.</t>
       </section>
 
+      <section anchor="link-type" title="type">
+        <t>The "type" property is OPTIONAL.</t>
+        <t>Its value is a hint indicating the media type expected when dereferencing the target URI.</t>
+      </section>
+
       <section anchor="link-title" title="title">
         <t>The "title" property is OPTIONAL.</t>
         <t>Its value is a string and is intended for labelling the link with a human-readable identifier (as defined by <xref target="RFC5988"/>).</t>
@@ -174,15 +172,15 @@ HTTP/1.1 200 OK
 Content-Type: application/hal+json
 
 {
-  "_self": "/orders",
   "_links": {
+    "self": { "href": "/orders" },
     "next": { "href": "/orders?page=2" },
     "find": { "href": "/orders{?id}", "templated": true }
   },
   "_embedded": {
     "orders": [{
-        "_self": "/orders/123",
         "_links": {
+          "self": { "href": "/orders/123" },
           "basket": { "href": "/baskets/98712" },
           "customer": { "href": "/customers/7809" }
         },
@@ -190,8 +188,8 @@ Content-Type: application/hal+json
         "currency": "USD",
         "status": "shipped",
       },{
-        "_self": "/orders/124",
         "_links": {
+          "self": { "href": "/orders/124" },
           "basket": { "href": "/baskets/97213" },
           "customer": { "href": "/customers/12369" }
         },
@@ -218,14 +216,18 @@ Content-Type: application/hal+json
     </section>
 
     <section anchor="recommendations" title="Recommendations">
+      <section anchor="self-link" title="Self Link">
+        <t>Each Resource Object SHOULD contain a 'self' link that corresponds with the IANA registered 'self' relation (as defined by <xref target="RFC5988"/>) who's target is the resource's URI.</t>
+      </section>
+
       <section anchor="link-relations" title="Link relations">
         <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the discoverability of the API.</t>
         <t>The CURIE Syntax <xref target="W3C.NOTE-curie-20101216" /> MAY be used for brevity for these URIs. A CURIE is established within a HAL document via a "curie" link on the root Resource Object. This link contains a URI Template with the token 'rel', and is named via the "name" property of the Link Object.</t>
 
 <figure><artwork><![CDATA[
 {
-  "_self": "/orders",
   "_links": {
+    "self": { "href": "/orders" },
     "curie": {
       "name": "acme",
       "href": "http://docs.acme.com/relations/{rel}",
