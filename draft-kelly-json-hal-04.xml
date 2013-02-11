@@ -122,6 +122,8 @@ Content-Type: application/hal+json
         <section anchor="embedded-resources" title="_embedded">
           <t>The reserved "_embedded" property is OPTIONAL</t>
           <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Resource Object or an array of Resource Objects.</t>
+          <t>Emebedded Reources MAY be a full, partial, or inconsistent version of the representation served from the target URI.</t>
+          <t>Clients MAY switch automatically from from traversing a link to reading an embedded resources interchangably.</t>
         </section>
       </section>
 
@@ -146,6 +148,12 @@ Content-Type: application/hal+json
       <section anchor="link-type" title="type">
         <t>The "type" property is OPTIONAL.</t>
         <t>Its value is a string used as a hint to indicate the media type expected when dereferencing the target resource.</t>
+      </section>
+
+      <section anchor="link-type" title="type">
+        <t>The "deprecation" property is OPTIONAL.</t>
+        <t>Its presence indicates that the link is to be deprecated (i.e. removed) at a future date. Its value is a URL that SHOULD provide further information about the deprecation.</t>
+        <t>A client SHOULD provide some notification (for example, by logging a warning message) whenever it traverses over a link that has this property. The notification SHOULD include the deprecation property's value so that a client manitainer can easily find information about the deprecation.</t>
       </section>
 
       <section anchor="link-name" title="name">
@@ -231,17 +239,17 @@ Content-Type: application/hal+json
 
       <section anchor="link-relations" title="Link relations">
         <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the discoverability of the API.</t>
-        <t>The CURIE Syntax <xref target="W3C.NOTE-curie-20101216" /> MAY be used for brevity for these URIs. A CURIE is established within a HAL document via a "curie" link on the root Resource Object. This link contains a URI Template with the token 'rel', and is named via the "name" property of the Link Object.</t>
+        <t>The CURIE Syntax <xref target="W3C.NOTE-curie-20101216" /> MAY be used for brevity for these URIs. CURIEs are established within a HAL document via a set of Link Objects with the relation type "curies" on the root Resource Object. These links contain a URI Template with the token 'rel', and are named via the "name" property.</t>
 
 <figure><artwork><![CDATA[
 {
   "_links": {
     "self": { "href": "/orders" },
-    "curie": {
+    "curies": [{
       "name": "acme",
       "href": "http://docs.acme.com/relations/{rel}",
       "templated": true
-    },
+    }],
     "acme:widgets": { "href": "/widgets" }
   }
 }
