@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE rfc SYSTEM "http://xml.resource.org/authoring/rfc2629.dtd" [
+<!ENTITY rfc2119 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+<!ENTITY rfc3986 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml'>
+<!ENTITY rfc4627 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4627.xml'>
+<!ENTITY rfc5988 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml'>
+<!ENTITY rfc6570 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>
+<!ENTITY NOTE-curie SYSTEM 'http://xml.resource.org/public/rfc/bibxml4/reference.W3C.NOTE-curie-20101216.xml'>
+<!ENTITY wilde-profile-link SYSTEM 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.wilde-profile-link.xml'>
+]>
+
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc compact="yes" ?>
+<?rfc toc="yes" ?>
+<?rfc tocdepth="3" ?>
+<?rfc tocindent="yes" ?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes"?>
+<?rfc iprnotified="no" ?>
+<?rfc strict="yes" ?>
+<?rfc comments="yes" ?>
+<?rfc inline="yes" ?>
+
+<rfc ipr="trust200902" docName="draft-kelly-json-hal-05" category="info">
+
+  <front>
+
+    <title>JSON Hypertext Application Language</title>
+
+    <author initials="M." surname="Kelly" fullname="Mike Kelly">
+      <organization>Stateless</organization>
+      <address>
+        <email>mike@stateless.co</email> 
+        <uri>http://stateless.co/</uri>
+      </address>
+    </author>
+    <date year="2013" month="February" day="12"/>
+
+    <abstract>
+      <t>This document proposes a media type for representing resources and their relations with hyperlinks.</t>
+    </abstract>
+
+  </front>
+
+  <middle>
+
+    <section title="Introduction">
+
+      <t>There is an emergence of non-HTML HTTP applications ("Web APIs") which use hyperlinks to direct clients around their resources.</t>
+
+      <t>The JSON Hypertext Application Language (HAL) is a standard which establishes conventions for expressing hypermedia controls, such as links, with JSON <xref target="RFC4627"/>.</t>
+
+      <t>HAL is a generic media type with which Web APIs can be developed and exposed as series of links. Clients of these APIs can select links by their link relation type and traverse them in order to progress through the application.</t>
+
+      <t>HAL's conventions result in a uniform interface for serving and consuming hypermedia, enabling the creation of general-purpose libraries that can be re-used on any API utilising HAL.</t>
+
+      <t>The primary design goals of HAL are generality and simplicity. HAL can be applied to many different domains, and imposes the minimal amount of structure necessary to cover the key requirements of a hypermedia Web API.</t>
+
+    </section>
+
+    <section title="Requirements">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in
+        this document are to be interpreted as described in <xref target="RFC2119"/>.</t>
+    </section>
+
+
+    <section anchor="json-hal-documents" title="HAL Documents">
+
+      <t>A HAL Document uses the format described in <xref target="RFC4627"/> and has the media type "application/hal+json".</t>
+
+      <t>Its root object MUST be a Resource Object.</t>
+
+      <t>For example:</t>
+
+<figure><artwork><![CDATA[
+GET /orders/523 HTTP/1.1
+Host: example.org
+Accept: application/hal+json
+
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+
+{
+  "_links": {
+    "self": { "href": "/orders/523" },
+    "warehouse": { "href": "/warehouse/56" },
+    "invoice": { "href": "/invoices/873" }
+  },
+  "currency": "USD",
+  "status": "shipped",
+  "total": 10.20
+}
+]]></artwork></figure>
+
+      <t>Here, we have a HAL document representing an order resource with the URI "/orders/523".
+        It has "warehouse" and "invoice" links, and its own state in the form of "currency", "status", and "total" properties.</t>
+
+    </section>
+
+    <section anchor="resource-objects" title="Resource Objects">
+
+      <t>A Resource Object represents a resource.</t>
+
+      <t>It has two reserved properties:
+        <list style="format (%d)">
+          <t>"_links": contains links to other resources.</t>
+          <t>"_embedded": contains embedded resources.</t>
+        </list>
+      </t>
+
+      <t>All other properties MUST be valid JSON, and represent the current state of the resource.</t>
+
+      <section anchor="resource-reserved-properties" title="Reserved Properties">
+
+        <section anchor="resource-links" title="_links">
+          <t>The reserved "_links" property is OPTIONAL.</t>
+          <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Link Object or an array of Link Objects. The subject resource of these links is the Resource Object of which the containing "_links" object is a property.</t>
+        </section>
+
+        <section anchor="embedded-resources" title="_embedded">
+          <t>The reserved "_embedded" property is OPTIONAL</t>
+          <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Resource Object or an array of Resource Objects.</t>
+          <t>Embedded Resources MAY be a full, partial, or inconsistent version of the representation served from the target URI.</t>
+        </section>
+      </section>
+
+    </section>
+
+    <section anchor="link-objects" title="Link Objects">
+
+      <t>A Link Object represents a hyperlink from the containing resource to a URI. It has the following properties:</t>
+
+      <section anchor="link-href" title="href">
+        <t>The "href" property is REQUIRED.</t>
+        <t>Its value is either a URI <xref target="RFC3986"/> or a URI Template <xref target="RFC6570"/>.</t>
+        <t>If the value is a URI Template then the Link Object SHOULD have a "templated" attribute whose value is true.</t>
+      </section>
+
+      <section anchor="link-templated" title="templated">
+        <t>The "templated" property is OPTIONAL.</t>
+        <t>Its value is boolean and SHOULD be true when the Link Object's "href" property is a URI Template.</t>
+        <t>Its value SHOULD be considered false if it is undefined or any other value than true.</t>
+      </section>
+
+      <section anchor="link-type" title="type">
+        <t>The "type" property is OPTIONAL.</t>
+        <t>Its value is a string used as a hint to indicate the media type expected when dereferencing the target resource.</t>
+      </section>
+
+      <section anchor="link-deprecation" title="deprecation">
+        <t>The "deprecation" property is OPTIONAL.</t>
+        <t>Its presence indicates that the link is to be deprecated (i.e. removed) at a future date. Its value is a URL that SHOULD provide further information about the deprecation.</t>
+        <t>A client SHOULD provide some notification (for example, by logging a warning message) whenever it traverses over a link that has this property. The notification SHOULD include the deprecation property's value so that a client manitainer can easily find information about the deprecation.</t>
+      </section>
+
+      <section anchor="link-name" title="name">
+        <t>The "name" property is OPTIONAL.</t>
+        <t>Its value MAY be used as a secondary key for selecting Link Objects which share the same relation type.</t>
+      </section>
+
+      <section anchor="link-profile" title="profile">
+        <t>The "profile" property is OPTIONAL.</t>
+        <t>Its value is a string which is a URI that hints about the profile (as defined by <xref target="I-D.wilde-profile-link" />) of the target resource.</t>
+      </section>
+
+      <section anchor="link-title" title="title">
+        <t>The "title" property is OPTIONAL.</t>
+        <t>Its value is a string and is intended for labelling the link with a human-readable identifier (as defined by <xref target="RFC5988"/>).</t>
+      </section>
+
+      <section anchor="link-hreflang" title="hreflang">
+        <t>The "hreflang" property is OPTIONAL.</t>
+        <t>Its value is a string and is intended for indicating the language of the target resource (as defined by <xref target="RFC5988"/>).</t>
+      </section>
+    </section>
+
+    <section anchor="example" title="Example Document">
+      <t>The following is an example document representing a list of orders</t>
+
+<figure><artwork><![CDATA[
+GET /orders HTTP/1.1
+Host: example.org
+Accept: application/hal+json
+
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+
+{
+  "_links": {
+    "self": { "href": "/orders" },
+    "next": { "href": "/orders?page=2" },
+    "find": { "href": "/orders{?id}", "templated": true }
+  },
+  "_embedded": {
+    "orders": [{
+        "_links": {
+          "self": { "href": "/orders/123" },
+          "basket": { "href": "/baskets/98712" },
+          "customer": { "href": "/customers/7809" }
+        },
+        "total": 30.00,
+        "currency": "USD",
+        "status": "shipped",
+      },{
+        "_links": {
+          "self": { "href": "/orders/124" },
+          "basket": { "href": "/baskets/97213" },
+          "customer": { "href": "/customers/12369" }
+        },
+        "total": 20.00,
+        "currency": "USD",
+        "status": "processing"
+    }]
+  },
+  "currentlyProcessing": 14,
+  "shippedToday": 20
+}
+]]></artwork></figure>
+
+      <t>Here, the order list document provides a "next" link directing to the next page, and a "find" link containing a URI Template which can be expanded with an 'id' variable to go directly to a specific order.</t>
+      <t>It also has two embedded resources, "orders". Each of these has its own links to the associated "basket" and "customer" resources, and properties showing their "total", "currency" and "status".</t>
+      <t>Additionally, the order list resource has its own properties "currentlyProcessing" and "shippedToday".</t>
+    </section>
+
+    <section anchor="media-type-parameters" title="Media Type Parameters">
+      <section anchor="profile-parmeter" title="profile">
+        <t>The media type identifier application/hal+json MAY also include an additional "profile" parameter (as defined by <xref target="I-D.wilde-profile-link" />)</t>
+        <t>HAL documents that are served with the "profile" parameter still SHOULD include a "profile" link belonging to the root resource.</t>
+      </section>
+    </section>
+
+    <section anchor="recommendations" title="Recommendations">
+      <section anchor="self-link" title="Self Link">
+        <t>Each Resource Object SHOULD contain a 'self' link that corresponds with the IANA registered 'self' relation (as defined by <xref target="RFC5988"/>) whose target is the resource's URI.</t>
+      </section>
+
+      <section anchor="link-relations" title="Link relations">
+        <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the discoverability of the API.</t>
+        <t>The CURIE Syntax <xref target="W3C.NOTE-curie-20101216" /> MAY be used for brevity for these URIs. CURIEs are established within a HAL document via a set of Link Objects with the relation type "curies" on the root Resource Object. These links contain a URI Template with the token 'rel', and are named via the "name" property.</t>
+
+<figure><artwork><![CDATA[
+{
+  "_links": {
+    "self": { "href": "/orders" },
+    "curies": [{
+      "name": "acme",
+      "href": "http://docs.acme.com/relations/{rel}",
+      "templated": true
+    }],
+    "acme:widgets": { "href": "/widgets" }
+  }
+}
+]]></artwork></figure>
+
+        <t>The above demonstrates the relation "http://docs.acme.com/relations/widgets" being abbreviated to "acme:widgets" via CURIE syntax.</t>
+
+      </section>
+
+      <section anchor="hypertext-cache-pattern" title="Hypertext Cache Pattern">
+        <t>The "hypertext cache pattern" allows servers to use embedded resources to dynamically reduce the number of requests a client makes, improving the efficiency and performance of the application.</t>
+        <t>Clients MAY be automated for this purpose so that, for any given link relation, they will read from an embedded resource (if present) in preference to traversing a link.</t>
+        <t>To activate this client behaviour for a given link, servers SHOULD add an embedded resource into the representation with the same relation.</t>
+        <t>Servers SHOULD NOT entirely "swap out" a link for an embedded resource (or vice versa) because client support for this technique is OPTIONAL.</t>
+        <t>The following examples shows the hypertext cache pattern applied to an "author" link:</t>
+        <figure>
+          <preamble>Before:</preamble>
+          <artwork><![CDATA[
+{
+  "_links": {
+    "self": { "href": "/books/the-way-of-zen" },
+    "author": { "href": "/people/alan-watts" }
+  }
+}
+]]>
+          </artwork>
+        </figure>
+        <figure>
+          <preamble>After:</preamble>
+          <artwork><![CDATA[
+{
+  "_links": {
+    "self": { "href": "/blog-post" },
+    "author": { "href": "/people/alan-watts" }
+  },
+  "_embedded": {
+    "author": {
+      "_links": { "self": { "href": "/people/alan-watts" } },
+      "name": "Alan Watts",
+      "born": "January 6, 1915",
+      "died": "November 16, 1973"
+    }
+  }
+}
+]]>
+          </artwork>
+        </figure>
+      </section>
+
+    </section>
+
+    <section anchor="security-considerations" title="Security Considerations">
+
+      <t>TBD</t>
+
+    </section>
+
+    <section anchor="iana-considerations" title="IANA Considerations">
+
+      <t>TBD</t>
+
+    </section>
+
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      &rfc2119;
+      &rfc3986;
+      &rfc4627;
+      &rfc5988;
+      &rfc6570;
+      &wilde-profile-link;
+      &NOTE-curie;
+    </references>
+
+    <!--<references title="Informative References">-->
+    <!--</references>-->
+
+    <section title="Acknowledgements">
+      <t>Thanks to
+        Darrel Miller, Mike Amundsen, and everyone in hal-discuss
+        for their suggestions and feedback.
+      </t>
+      <t>The author takes all responsibility for errors and omissions.</t>
+    </section>
+
+    <section anchor="frequently-asked-questions" title="Frequently Asked Questions">
+      <section anchor="how-should-a-client-know-structure-of-resource" title="How should a client know the meaning/structure/semantics/type of a resource?">
+        <t>There are two main approaches to solving this problem.
+          Both involve exposing additional documentation describing the resource which may be human and/or machine readable (i.e. an HTML page and/or a JSON Schema document).
+          The difference between the two approaches is in where that URI is shared with the client, which is either:
+          <list style="format (%d)">
+            <t>The URI that was the preceding link relation type.</t>
+            <t>A 'profile' link from the resource itself.</t>
+          </list>
+        </t>
+      </section>
+
+      <section title="Where can I find libraries for working with HAL?">
+        <t>A list of libraries is maintained here: http://stateless.co/hal_specification.html</t>
+      </section>
+
+      <section title="Why are the reserved properties prefixed with an underscore?">
+        <t>We elected for a prefix character to minimise risk of collisions with properties that represent the resource's state, and underscore was the character picked.</t>
+        <t>Another reason for prefixing the reserved properties is to make it visually apparent that the reserved properties are distinct from standard properties belonging to the resource.</t>
+      </section>
+
+      <section title="Are all underscore-prefixed properties reserved?">
+        <t>No, HAL only reserves the names detailed in this specification.</t>
+      </section>
+
+      <section title="Why does HAL have no forms?">
+        <t>Omitting forms from HAL was an intentional design decision that was made to keep it focused on linking for APIs. HAL is therefore a good candidate for use as a base media type on which to build more complex capabilities. An additional media type is planned for the future which will add form-like controls on top of HAL.</t>
+      </section>
+    </section>
+
+  </back>
+</rfc>

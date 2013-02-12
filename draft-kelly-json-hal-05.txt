@@ -9,7 +9,7 @@ Expires: August 16, 2013
 
 
                   JSON Hypertext Application Language
-                        draft-kelly-json-hal-04
+                        draft-kelly-json-hal-05
 
 Abstract
 
@@ -80,19 +80,20 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    8.  Recommendations . . . . . . . . . . . . . . . . . . . . . . .   7
      8.1.  Self Link . . . . . . . . . . . . . . . . . . . . . . . .   7
      8.2.  Link relations  . . . . . . . . . . . . . . . . . . . . .   7
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
-   11. Normative References  . . . . . . . . . . . . . . . . . . . .   8
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .   9
-   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .   9
+     8.3.  Hypertext Cache Pattern . . . . . . . . . . . . . . . . .   8
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
+   11. Normative References  . . . . . . . . . . . . . . . . . . . .   9
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
+   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  10
      B.1.  How should a client know the
-           meaning/structure/semantics/type of a resource? . . . . .   9
-     B.2.  Where can I find libraries for working with HAL?  . . . .   9
+           meaning/structure/semantics/type of a resource? . . . . .  10
+     B.2.  Where can I find libraries for working with HAL?  . . . .  10
      B.3.  Why are the reserved properties prefixed with an
-           underscore? . . . . . . . . . . . . . . . . . . . . . . .   9
-     B.4.  Are all underscore-prefixed properties reserved?  . . . .  10
-     B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . .  10
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
+           underscore? . . . . . . . . . . . . . . . . . . . . . . .  10
+     B.4.  Are all underscore-prefixed properties reserved?  . . . .  11
+     B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . .  11
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -103,9 +104,8 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    establishes conventions for expressing hypermedia controls, such as
    links, with JSON [RFC4627].
 
-
-
-
+   HAL is a generic media type with which Web APIs can be developed and
+   exposed as series of links.  Clients of these APIs can select links
 
 
 
@@ -114,8 +114,6 @@ Kelly                   Expires August 16, 2013                 [Page 2]
 Internet-Draft    JSON Hypertext Application Language      February 2013
 
 
-   HAL is a generic media type with which Web APIs can be developed and
-   exposed as series of links.  Clients of these APIs can select links
    by their link relation type and traverse them in order to progress
    through the application.
 
@@ -162,6 +160,8 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    }
 
 
+   Here, we have a HAL document representing an order resource with the
+   URI "/orders/523".  It has "warehouse" and "invoice" links, and its
 
 
 
@@ -170,8 +170,6 @@ Kelly                   Expires August 16, 2013                 [Page 3]
 Internet-Draft    JSON Hypertext Application Language      February 2013
 
 
-   Here, we have a HAL document representing an order resource with the
-   URI "/orders/523".  It has "warehouse" and "invoice" links, and its
    own state in the form of "currency", "status", and "total"
    properties.
 
@@ -207,17 +205,19 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    defined by [RFC5988]) and values are either a Resource Object or an
    array of Resource Objects.
 
-   Emebedded Reources MAY be a full, partial, or inconsistent version of
+   Embedded Resources MAY be a full, partial, or inconsistent version of
    the representation served from the target URI.
-
-   Clients MAY switch transparently between links and embedded resources
-   that share the same link relation, however this SHOULD NOT be
-   considered a requirement of this specification.
 
 5.  Link Objects
 
    A Link Object represents a hyperlink from the containing resource to
    a URI.  It has the following properties:
+
+
+
+
+
+
 
 
 
@@ -422,6 +422,64 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    The above demonstrates the relation "http://docs.acme.com/relations/
    widgets" being abbreviated to "acme:widgets" via CURIE syntax.
 
+8.3.  Hypertext Cache Pattern
+
+   The "hypertext cache pattern" allows servers to use embedded
+   resources to dynamically reduce the number of requests a client
+   makes, improving the efficiency and performance of the application.
+
+   Clients MAY be automated for this purpose so that, for any given link
+   relation, they will read from an embedded resource (if present) in
+   preference to traversing a link.
+
+   To activate this client behaviour for a given link, servers SHOULD
+   add an embedded resource into the representation with the same
+   relation.
+
+   Servers SHOULD NOT entirely "swap out" a link for an embedded
+   resource (or vice versa) because client support for this technique is
+   OPTIONAL.
+
+   The following examples shows the hypertext cache pattern applied to
+   an "author" link:
+
+
+
+Kelly                   Expires August 16, 2013                 [Page 8]
+
+Internet-Draft    JSON Hypertext Application Language      February 2013
+
+
+   Before:
+
+   {
+     "_links": {
+       "self": { "href": "/books/the-way-of-zen" },
+       "author": { "href": "/people/alan-watts" }
+     }
+   }
+
+
+
+   After:
+
+   {
+     "_links": {
+       "self": { "href": "/blog-post" },
+       "author": { "href": "/people/alan-watts" }
+     },
+     "_embedded": {
+       "author": {
+         "_links": { "self": { "href": "/people/alan-watts" } },
+         "name": "Alan Watts",
+         "born": "January 6, 1915",
+         "died": "November 16, 1973"
+       }
+     }
+   }
+
+
+
 9.  Security Considerations
 
    TBD
@@ -439,16 +497,18 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
 
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66, RFC
-              3986, January 2005.
 
 
 
-Kelly                   Expires August 16, 2013                 [Page 8]
+
+Kelly                   Expires August 16, 2013                 [Page 9]
 
 Internet-Draft    JSON Hypertext Application Language      February 2013
 
+
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66, RFC
+              3986, January 2005.
 
    [RFC4627]  Crockford, D., "The application/json Media Type for
               JavaScript Object Notation (JSON)", RFC 4627, July 2006.
@@ -487,24 +547,24 @@ B.1.  How should a client know the meaning/structure/semantics/type of a
 
 B.2.  Where can I find libraries for working with HAL?
 
-   A list of libraries is maintained and published at the HAL Home Page
-   [1]
+   A list of libraries is maintained here: http://stateless.co/
+   hal_specification.html
 
 B.3.  Why are the reserved properties prefixed with an underscore?
 
-   We elected for a prefix character to minimize risk of collisions with
-   properties that represent the resource's state, and underscore was
-   the character picked.
 
 
 
 
 
-
-Kelly                   Expires August 16, 2013                 [Page 9]
+Kelly                   Expires August 16, 2013                [Page 10]
 
 Internet-Draft    JSON Hypertext Application Language      February 2013
 
+
+   We elected for a prefix character to minimise risk of collisions with
+   properties that represent the resource's state, and underscore was
+   the character picked.
 
    Another reason for prefixing the reserved properties is to make it
    visually apparent that the reserved properties are distinct from
@@ -552,8 +612,4 @@ Author's Address
 
 
 
-
-
-
-
-Kelly                   Expires August 16, 2013                [Page 10]
+Kelly                   Expires August 16, 2013                [Page 11]
