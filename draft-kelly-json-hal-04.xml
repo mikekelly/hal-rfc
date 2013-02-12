@@ -26,7 +26,7 @@
 
   <front>
 
-    <title>JSON Hypermedia API Language</title>
+    <title>JSON Hypertext Application Language</title>
 
     <author initials="M." surname="Kelly" fullname="Mike Kelly">
       <organization>Stateless</organization>
@@ -38,7 +38,7 @@
     <date year="2012"/>
 
     <abstract>
-      <t>This document proposes a media type for representing resources and their relations as hypermedia.</t>
+      <t>This document proposes a media type for representing resources and their relations with hyperlinks.</t>
     </abstract>
 
   </front>
@@ -47,15 +47,15 @@
 
     <section title="Introduction">
 
-      <t>There is an emergence of non-HTML HTTP applications ("Web APIs") which use hypermedia to direct clients around their resources.</t>
+      <t>There is an emergence of non-HTML HTTP applications ("Web APIs") which use hyperlinks to direct clients around their resources.</t>
 
-      <t>The JSON Hypermedia API Language (HAL) is a standard which establishes conventions for expressing hypermedia controls, such as links, with JSON <xref target="RFC4627"/>.</t>
+      <t>The JSON Hypertext Application Language (HAL) is a standard which establishes conventions for expressing hypermedia controls, such as links, with JSON <xref target="RFC4627"/>.</t>
 
       <t>HAL is a generic media type with which Web APIs can be developed and exposed as series of links. Clients of these APIs can select links by their link relation type and traverse them in order to progress through the application.</t>
 
       <t>HAL's conventions result in a uniform interface for serving and consuming hypermedia, enabling the creation of general-purpose libraries that can be re-used on any API utilising HAL.</t>
 
-      <t>The primary design goals of HAL are generality and simplicity. HAL can be applied to many different domains, and imposes the minimal amount of structure necessary to cover the key requirements of a hypermedia API.</t>
+      <t>The primary design goals of HAL are generality and simplicity. HAL can be applied to many different domains, and imposes the minimal amount of structure necessary to cover the key requirements of a hypermedia Web API.</t>
 
     </section>
 
@@ -150,7 +150,7 @@ Content-Type: application/hal+json
         <t>Its value is a string used as a hint to indicate the media type expected when dereferencing the target resource.</t>
       </section>
 
-      <section anchor="link-type" title="type">
+      <section anchor="link-deprecation" title="deprecation">
         <t>The "deprecation" property is OPTIONAL.</t>
         <t>Its presence indicates that the link is to be deprecated (i.e. removed) at a future date. Its value is a URL that SHOULD provide further information about the deprecation.</t>
         <t>A client SHOULD provide some notification (for example, by logging a warning message) whenever it traverses over a link that has this property. The notification SHOULD include the deprecation property's value so that a client manitainer can easily find information about the deprecation.</t>
