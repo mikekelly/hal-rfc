@@ -116,12 +116,12 @@ Content-Type: application/hal+json
 
         <section anchor="resource-links" title="_links">
           <t>The reserved "_links" property is OPTIONAL.</t>
-          <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Link Object or an array of Link Objects. The subject resource of these links is the Resource Object of which the containing "_links" object is a property.</t>
+          <t>It is an object where each property name is a link relation type (as defined by <xref target="RFC5988"/>) and whose value is either a Link Object or an array of Link Objects. The subject resource of these links is the Resource Object of which the containing "_links" object is a property.</t>
         </section>
 
         <section anchor="embedded-resources" title="_embedded">
           <t>The reserved "_embedded" property is OPTIONAL</t>
-          <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Resource Object or an array of Resource Objects.</t>
+          <t>It is an object where each property name is a link relation types (as defined by <xref target="RFC5988"/>) and whose value is either a Resource Object or an array of Resource Objects.</t>
         </section>
       </section>
 
