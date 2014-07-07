@@ -31,11 +31,11 @@
     <author initials="M." surname="Kelly" fullname="Mike Kelly">
       <organization>Stateless</organization>
       <address>
-        <email>mike@stateless.co</email> 
+        <email>mike@stateless.co</email>
         <uri>http://stateless.co/</uri>
       </address>
     </author>
-    <date year="2013" month="February" day="12"/>
+    <date year="2014" month="August" day="1"/>
 
     <abstract>
       <t>This document proposes a media type for representing resources and their relations with hyperlinks.</t>

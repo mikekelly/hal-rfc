@@ -4,8 +4,8 @@
 
 Network Working Group                                           M. Kelly
 Internet-Draft                                                 Stateless
-Intended status: Informational                         February 12, 2013
-Expires: August 16, 2013
+Intended status: Informational                            August 1, 2014
+Expires: February 2, 2015
 
 
                   JSON Hypertext Application Language
@@ -31,11 +31,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 16, 2013.
+   This Internet-Draft will expire on February 2, 2015.
 
 Copyright Notice
 
-   Copyright (c) 2013 IETF Trust and the persons identified as the
+   Copyright (c) 2014 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -48,15 +48,17 @@ Copyright Notice
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
 
-Table of Contents
 
 
 
 
-Kelly                   Expires August 16, 2013                 [Page 1]
+
+Kelly                   Expires February 2, 2015                [Page 1]
 
-Internet-Draft    JSON Hypertext Application Language      February 2013
+Internet-Draft     JSON Hypertext Application Language       August 2014
 
+
+Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Requirements  . . . . . . . . . . . . . . . . . . . . . . . .   3
@@ -75,22 +77,22 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
      5.7.  title . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      5.8.  hreflang  . . . . . . . . . . . . . . . . . . . . . . . .   6
    6.  Example Document  . . . . . . . . . . . . . . . . . . . . . .   6
-   7.  Media Type Parameters . . . . . . . . . . . . . . . . . . . .   7
-     7.1.  profile . . . . . . . . . . . . . . . . . . . . . . . . .   7
-   8.  Recommendations . . . . . . . . . . . . . . . . . . . . . . .   7
-     8.1.  Self Link . . . . . . . . . . . . . . . . . . . . . . . .   7
-     8.2.  Link relations  . . . . . . . . . . . . . . . . . . . . .   7
-     8.3.  Hypertext Cache Pattern . . . . . . . . . . . . . . . . .   8
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
-   11. Normative References  . . . . . . . . . . . . . . . . . . . .   9
+   7.  Media Type Parameters . . . . . . . . . . . . . . . . . . . .   8
+     7.1.  profile . . . . . . . . . . . . . . . . . . . . . . . . .   8
+   8.  Recommendations . . . . . . . . . . . . . . . . . . . . . . .   8
+     8.1.  Self Link . . . . . . . . . . . . . . . . . . . . . . . .   8
+     8.2.  Link relations  . . . . . . . . . . . . . . . . . . . . .   8
+     8.3.  Hypertext Cache Pattern . . . . . . . . . . . . . . . . .   9
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   11. Normative References  . . . . . . . . . . . . . . . . . . . .  10
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
    Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  10
      B.1.  How should a client know the
-           meaning/structure/semantics/type of a resource? . . . . .  10
-     B.2.  Where can I find libraries for working with HAL?  . . . .  10
+           meaning/structure/semantics/type of a resource? . . . . .  11
+     B.2.  Where can I find libraries for working with HAL?  . . . .  11
      B.3.  Why are the reserved properties prefixed with an
-           underscore? . . . . . . . . . . . . . . . . . . . . . . .  10
+           underscore? . . . . . . . . . . . . . . . . . . . . . . .  11
      B.4.  Are all underscore-prefixed properties reserved?  . . . .  11
      B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . .  11
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
@@ -104,16 +106,16 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    establishes conventions for expressing hypermedia controls, such as
    links, with JSON [RFC4627].
 
+
+
+
+Kelly                   Expires February 2, 2015                [Page 2]
+
+Internet-Draft     JSON Hypertext Application Language       August 2014
+
+
    HAL is a generic media type with which Web APIs can be developed and
    exposed as series of links.  Clients of these APIs can select links
-
-
-
-Kelly                   Expires August 16, 2013                 [Page 2]
-
-Internet-Draft    JSON Hypertext Application Language      February 2013
-
-
    by their link relation type and traverse them in order to progress
    through the application.
 
@@ -160,16 +162,16 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    }
 
 
+
+
+
+Kelly                   Expires February 2, 2015                [Page 3]
+
+Internet-Draft     JSON Hypertext Application Language       August 2014
+
+
    Here, we have a HAL document representing an order resource with the
    URI "/orders/523".  It has "warehouse" and "invoice" links, and its
-
-
-
-Kelly                   Expires August 16, 2013                 [Page 3]
-
-Internet-Draft    JSON Hypertext Application Language      February 2013
-
-
    own state in the form of "currency", "status", and "total"
    properties.
 
@@ -219,11 +221,9 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
 
 
 
-
-
-Kelly                   Expires August 16, 2013                 [Page 4]
+Kelly                   Expires February 2, 2015                [Page 4]
 
-Internet-Draft    JSON Hypertext Application Language      February 2013
+Internet-Draft     JSON Hypertext Application Language       August 2014
 
 
 5.1.  href
@@ -277,9 +277,9 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
 
 
 
-Kelly                   Expires August 16, 2013                 [Page 5]
+Kelly                   Expires February 2, 2015                [Page 5]
 
-Internet-Draft    JSON Hypertext Application Language      February 2013
+Internet-Draft     JSON Hypertext Application Language       August 2014
 
 
 5.6.  profile
@@ -307,6 +307,37 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
 
    The following is an example document representing a list of orders
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kelly                   Expires February 2, 2015                [Page 6]
+
+Internet-Draft     JSON Hypertext Application Language       August 2014
+
+
    GET /orders HTTP/1.1
    Host: example.org
    Accept: application/hal+json
@@ -330,14 +361,6 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
            "total": 30.00,
            "currency": "USD",
            "status": "shipped",
-
-
-
-Kelly                   Expires August 16, 2013                 [Page 6]
-
-Internet-Draft    JSON Hypertext Application Language      February 2013
-
-
          },{
            "_links": {
              "self": { "href": "/orders/124" },
@@ -353,7 +376,6 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
      "shippedToday": 20
    }
 
-
    Here, the order list document provides a "next" link directing to the
    next page, and a "find" link containing a URI Template which can be
    expanded with an 'id' variable to go directly to a specific order.
@@ -364,6 +386,13 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
 
    Additionally, the order list resource has its own properties
    "currentlyProcessing" and "shippedToday".
+
+
+
+Kelly                   Expires February 2, 2015                [Page 7]
+
+Internet-Draft     JSON Hypertext Application Language       August 2014
+
 
 7.  Media Type Parameters
 
@@ -385,14 +414,6 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    whose target is the resource's URI.
 
 8.2.  Link relations
-
-
-
-
-Kelly                   Expires August 16, 2013                 [Page 7]
-
-Internet-Draft    JSON Hypertext Application Language      February 2013
-
 
    Custom link relation types (Extension Relation Types in [RFC5988])
    SHOULD be URIs that when dereferenced in a web browser provide
@@ -418,9 +439,16 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
      }
    }
 
-
    The above demonstrates the relation "http://docs.acme.com/relations/
    widgets" being abbreviated to "acme:widgets" via CURIE syntax.
+
+
+
+
+Kelly                   Expires February 2, 2015                [Page 8]
+
+Internet-Draft     JSON Hypertext Application Language       August 2014
+
 
 8.3.  Hypertext Cache Pattern
 
@@ -443,13 +471,6 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    The following examples shows the hypertext cache pattern applied to
    an "author" link:
 
-
-
-Kelly                   Expires August 16, 2013                 [Page 8]
-
-Internet-Draft    JSON Hypertext Application Language      February 2013
-
-
    Before:
 
    {
@@ -458,7 +479,6 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
        "author": { "href": "/people/alan-watts" }
      }
    }
-
 
 
    After:
@@ -480,6 +500,12 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
 
 
 
+
+Kelly                   Expires February 2, 2015                [Page 9]
+
+Internet-Draft     JSON Hypertext Application Language       August 2014
+
+
 9.  Security Considerations
 
    TBD
@@ -497,15 +523,6 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
 
-
-
-
-
-Kelly                   Expires August 16, 2013                 [Page 9]
-
-Internet-Draft    JSON Hypertext Application Language      February 2013
-
-
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66, RFC
               3986, January 2005.
@@ -519,7 +536,7 @@ Internet-Draft    JSON Hypertext Application Language      February 2013
               and D. Orchard, "URI Template", RFC 6570, March 2012.
 
    [W3C.NOTE-curie-20101216]
-              McCarron, S. and M. Birbeck, "CURIE Syntax 1.0", World
+              Birbeck, M. and S. McCarron, "CURIE Syntax 1.0", World
               Wide Web Consortium NOTE NOTE-curie-20101216, December
               2010, <http://www.w3.org/TR/2010/NOTE-curie-20101216>.
 
@@ -532,12 +549,25 @@ Appendix A.  Acknowledgements
 
 Appendix B.  Frequently Asked Questions
 
+
+
+
+
+
+
+
+
+Kelly                   Expires February 2, 2015               [Page 10]
+
+Internet-Draft     JSON Hypertext Application Language       August 2014
+
+
 B.1.  How should a client know the meaning/structure/semantics/type of a
       resource?
 
    There are two main approaches to solving this problem.  Both involve
    exposing additional documentation describing the resource which may
-   be human and/or machine readable (i.e.  an HTML page and/or a JSON
+   be human and/or machine readable (i.e. an HTML page and/or a JSON
    Schema document).  The difference between the two approaches is in
    where that URI is shared with the client, which is either:
 
@@ -551,16 +581,6 @@ B.2.  Where can I find libraries for working with HAL?
    hal_specification.html
 
 B.3.  Why are the reserved properties prefixed with an underscore?
-
-
-
-
-
-
-Kelly                   Expires August 16, 2013                [Page 10]
-
-Internet-Draft    JSON Hypertext Application Language      February 2013
-
 
    We elected for a prefix character to minimise risk of collisions with
    properties that represent the resource's state, and underscore was
@@ -593,23 +613,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Kelly                   Expires August 16, 2013                [Page 11]
+Kelly                   Expires February 2, 2015               [Page 11]
