@@ -202,7 +202,7 @@ Content-Type: application/hal+json
         },
         "total": 30.00,
         "currency": "USD",
-        "status": "shipped",
+        "status": "shipped"
       },{
         "_links": {
           "self": { "href": "/orders/124" },
