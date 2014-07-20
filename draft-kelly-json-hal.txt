@@ -263,7 +263,7 @@ Internet-Draft     JSON Hypertext Application Language       August 2014
    A client SHOULD provide some notification (for example, by logging a
    warning message) whenever it traverses over a link that has this
    property.  The notification SHOULD include the deprecation property's
-   value so that a client manitainer can easily find information about
+   value so that a client maintainer can easily find information about
    the deprecation.
 
 5.5.  name
