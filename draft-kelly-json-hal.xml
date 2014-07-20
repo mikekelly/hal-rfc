@@ -152,7 +152,7 @@ Content-Type: application/hal+json
       <section anchor="link-deprecation" title="deprecation">
         <t>The "deprecation" property is OPTIONAL.</t>
         <t>Its presence indicates that the link is to be deprecated (i.e. removed) at a future date. Its value is a URL that SHOULD provide further information about the deprecation.</t>
-        <t>A client SHOULD provide some notification (for example, by logging a warning message) whenever it traverses over a link that has this property. The notification SHOULD include the deprecation property's value so that a client manitainer can easily find information about the deprecation.</t>
+        <t>A client SHOULD provide some notification (for example, by logging a warning message) whenever it traverses over a link that has this property. The notification SHOULD include the deprecation property's value so that a client maintainer can easily find information about the deprecation.</t>
       </section>
 
       <section anchor="link-name" title="name">
@@ -225,7 +225,7 @@ Content-Type: application/hal+json
     </section>
 
     <section anchor="media-type-parameters" title="Media Type Parameters">
-      <section anchor="profile-parmeter" title="profile">
+      <section anchor="profile-parameter" title="profile">
         <t>The media type identifier application/hal+json MAY also include an additional "profile" parameter (as defined by <xref target="I-D.wilde-profile-link" />)</t>
         <t>HAL documents that are served with the "profile" parameter still SHOULD include a "profile" link belonging to the root resource.</t>
       </section>
