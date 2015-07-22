@@ -22,7 +22,7 @@
 <?rfc comments="yes" ?>
 <?rfc inline="yes" ?>
 
-<rfc ipr="trust200902" docName="draft-kelly-json-hal-05" category="info">
+<rfc ipr="trust200902" docName="draft-kelly-json-hal-07" category="info">
 
   <front>
 
@@ -35,7 +35,7 @@
         <uri>http://stateless.co/</uri>
       </address>
     </author>
-    <date year="2014" month="August" day="1"/>
+    <date year="2015" month="July" day="22"/>
 
     <abstract>
       <t>This document proposes a media type for representing resources and their relations with hyperlinks.</t>
