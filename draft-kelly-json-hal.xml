@@ -3,9 +3,9 @@
 <!DOCTYPE rfc SYSTEM "http://xml.resource.org/authoring/rfc2629.dtd" [
 <!ENTITY rfc2119 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
 <!ENTITY rfc3986 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml'>
-<!ENTITY rfc4627 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4627.xml'>
 <!ENTITY rfc5988 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml'>
 <!ENTITY rfc6570 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>
+<!ENTITY rfc7159 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7159.xml'>
 <!ENTITY NOTE-curie SYSTEM 'http://xml.resource.org/public/rfc/bibxml4/reference.W3C.NOTE-curie-20101216.xml'>
 <!ENTITY wilde-profile-link SYSTEM 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.wilde-profile-link.xml'>
 ]>
@@ -49,7 +49,7 @@
 
       <t>There is an emergence of non-HTML HTTP applications ("Web APIs") which use hyperlinks to direct clients around their resources.</t>
 
-      <t>The JSON Hypertext Application Language (HAL) is a standard which establishes conventions for expressing hypermedia controls, such as links, with JSON <xref target="RFC4627"/>.</t>
+      <t>The JSON Hypertext Application Language (HAL) is a standard which establishes conventions for expressing hypermedia controls, such as links, with JSON <xref target="RFC7159"/>.</t>
 
       <t>HAL is a generic media type with which Web APIs can be developed and exposed as series of links. Clients of these APIs can select links by their link relation type and traverse them in order to progress through the application.</t>
 
@@ -68,7 +68,7 @@
 
     <section anchor="json-hal-documents" title="HAL Documents">
 
-      <t>A HAL Document uses the format described in <xref target="RFC4627"/> and has the media type "application/hal+json".</t>
+      <t>A HAL Document uses the format described in <xref target="RFC7159"/> and has the media type "application/hal+json".</t>
 
       <t>Its root object MUST be a Resource Object.</t>
 
@@ -318,9 +318,9 @@ Content-Type: application/hal+json
     <references title="Normative References">
       &rfc2119;
       &rfc3986;
-      &rfc4627;
       &rfc5988;
       &rfc6570;
+      &rfc7159;
       &wilde-profile-link;
       &NOTE-curie;
     </references>
