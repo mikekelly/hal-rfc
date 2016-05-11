@@ -4,12 +4,12 @@
 
 Network Working Group                                           M. Kelly
 Internet-Draft                                                 Stateless
-Intended status: Informational                             July 22, 2015
-Expires: January 23, 2016
+Intended status: Informational                              May 11, 2016
+Expires: November 12, 2016
 
 
                   JSON Hypertext Application Language
-                        draft-kelly-json-hal-07
+                        draft-kelly-json-hal-08
 
 Abstract
 
@@ -31,11 +31,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 23, 2016.
+   This Internet-Draft will expire on November 12, 2016.
 
 Copyright Notice
 
-   Copyright (c) 2015 IETF Trust and the persons identified as the
+   Copyright (c) 2016 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Kelly                   Expires January 23, 2016                [Page 1]
+Kelly                   Expires November 12, 2016               [Page 1]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Kelly                   Expires January 23, 2016                [Page 2]
+Kelly                   Expires November 12, 2016               [Page 2]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
    HAL is a generic media type with which Web APIs can be developed and
@@ -165,9 +165,9 @@ Internet-Draft     JSON Hypertext Application Language         July 2015
 
 
 
-Kelly                   Expires January 23, 2016                [Page 3]
+Kelly                   Expires November 12, 2016               [Page 3]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
    Here, we have a HAL document representing an order resource with the
@@ -221,9 +221,9 @@ Internet-Draft     JSON Hypertext Application Language         July 2015
 
 
 
-Kelly                   Expires January 23, 2016                [Page 4]
+Kelly                   Expires November 12, 2016               [Page 4]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 5.1.  href
@@ -263,7 +263,7 @@ Internet-Draft     JSON Hypertext Application Language         July 2015
    A client SHOULD provide some notification (for example, by logging a
    warning message) whenever it traverses over a link that has this
    property.  The notification SHOULD include the deprecation property's
-   value so that a client maintainer can easily find information about
+   value so that a client manitainer can easily find information about
    the deprecation.
 
 5.5.  name
@@ -277,9 +277,9 @@ Internet-Draft     JSON Hypertext Application Language         July 2015
 
 
 
-Kelly                   Expires January 23, 2016                [Page 5]
+Kelly                   Expires November 12, 2016               [Page 5]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 5.6.  profile
@@ -333,9 +333,9 @@ Internet-Draft     JSON Hypertext Application Language         July 2015
 
 
 
-Kelly                   Expires January 23, 2016                [Page 6]
+Kelly                   Expires November 12, 2016               [Page 6]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
    GET /orders HTTP/1.1
@@ -360,7 +360,7 @@ Internet-Draft     JSON Hypertext Application Language         July 2015
            },
            "total": 30.00,
            "currency": "USD",
-           "status": "shipped"
+           "status": "shipped",
          },{
            "_links": {
              "self": { "href": "/orders/124" },
@@ -389,9 +389,9 @@ Internet-Draft     JSON Hypertext Application Language         July 2015
 
 
 
-Kelly                   Expires January 23, 2016                [Page 7]
+Kelly                   Expires November 12, 2016               [Page 7]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 7.  Media Type Parameters
@@ -445,9 +445,9 @@ Internet-Draft     JSON Hypertext Application Language         July 2015
 
 
 
-Kelly                   Expires January 23, 2016                [Page 8]
+Kelly                   Expires November 12, 2016               [Page 8]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 8.3.  Hypertext Cache Pattern
@@ -501,9 +501,9 @@ Internet-Draft     JSON Hypertext Application Language         July 2015
 
 
 
-Kelly                   Expires January 23, 2016                [Page 9]
+Kelly                   Expires November 12, 2016               [Page 9]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 9.  Security Considerations
@@ -557,9 +557,9 @@ Appendix B.  Frequently Asked Questions
 
 
 
-Kelly                   Expires January 23, 2016               [Page 10]
+Kelly                   Expires November 12, 2016              [Page 10]
 
-Internet-Draft     JSON Hypertext Application Language         July 2015
+Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 B.1.  How should a client know the meaning/structure/semantics/type of a
@@ -613,4 +613,4 @@ Author's Address
 
 
 
-Kelly                   Expires January 23, 2016               [Page 11]
+Kelly                   Expires November 12, 2016              [Page 11]

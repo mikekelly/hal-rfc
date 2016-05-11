@@ -1,7 +1,7 @@
 The hal+json specification
 ==========================
 
-The easiest place to read it is here: http://tools.ietf.org/html/draft-kelly-json-hal-06
+The easiest place to read it is here: http://tools.ietf.org/html/draft-kelly-json-hal
 
 Please contribute proposals for changes that you think will improve the spec!
 
