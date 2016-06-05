@@ -208,12 +208,15 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    array of Resource Objects.
 
    Embedded Resources MAY be a full, partial, or inconsistent version of
-   the representation served from the target URI.
+   the representation served from the target URI. All Embedded Resources
+   SHOULD have an equivalent Link Object.
 
 5.  Link Objects
 
-   A Link Object represents a hyperlink from the containing resource to
-   a URI.  It has the following properties:
+   A Link Object represents a hyperlink from the containing resource to a URI.
+   All relationships of interest to clients should be represented by a Link
+   Object, including any that are also represented by an Embedded Object. It has
+   the following properties:
 
 
 
@@ -348,6 +351,8 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    {
      "_links": {
        "self": { "href": "/orders" },
+       "orders": [ { "href": "/orders/123" },
+                   { "href": "/orders/124" } ],
        "next": { "href": "/orders?page=2" },
        "find": { "href": "/orders{?id}", "templated": true }
      },
@@ -376,13 +381,15 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
      "shippedToday": 20
    }
 
-   Here, the order list document provides a "next" link directing to the
-   next page, and a "find" link containing a URI Template which can be
-   expanded with an 'id' variable to go directly to a specific order.
+   Here, the order list document provides links to several "orders", a "next"
+   link directing to the next page, and a "find" link containing a URI Template
+   which can be expanded with an 'id' variable to go directly to a specific
+   order.
 
-   It also has two embedded resources, "orders".  Each of these has its
-   own links to the associated "basket" and "customer" resources, and
-   properties showing their "total", "currency" and "status".
+   In order to reduce the number of network requests needed it also embeds
+   representations of the related "order" resource.  Each of these has its own
+   links to the associated "basket" and "customer" resources, and properties
+   showing their "total", "currency" and "status".
 
    Additionally, the order list resource has its own properties
    "currentlyProcessing" and "shippedToday".
@@ -464,9 +471,10 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    add an embedded resource into the representation with the same
    relation.
 
-   Servers SHOULD NOT entirely "swap out" a link for an embedded
-   resource (or vice versa) because client support for this technique is
-   OPTIONAL.
+   Servers SHOULD include a link even when the related resource is embedded
+   because client support for this technique is OPTIONAL. Servers SHOULD NOT
+   remove an embedded resource because clients may be dependent on its
+   existence.
 
    The following examples shows the hypertext cache pattern applied to
    an "author" link:
