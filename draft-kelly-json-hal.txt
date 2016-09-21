@@ -87,7 +87,7 @@ Table of Contents
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
    11. Normative References  . . . . . . . . . . . . . . . . . . . .  10
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
-   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  10
+   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  11
      B.1.  How should a client know the
            meaning/structure/semantics/type of a resource? . . . . .  11
      B.2.  Where can I find libraries for working with HAL?  . . . .  11
@@ -95,7 +95,7 @@ Table of Contents
            underscore? . . . . . . . . . . . . . . . . . . . . . . .  11
      B.4.  Are all underscore-prefixed properties reserved?  . . . .  11
      B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . .  11
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
 
@@ -263,7 +263,7 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    A client SHOULD provide some notification (for example, by logging a
    warning message) whenever it traverses over a link that has this
    property.  The notification SHOULD include the deprecation property's
-   value so that a client manitainer can easily find information about
+   value so that a client maintainer can easily find information about
    the deprecation.
 
 5.5.  name
@@ -521,19 +521,28 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
               wilde-profile-link-04 (work in progress), October 2012.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <http://www.rfc-editor.org/info/rfc2119>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66, RFC
-              3986, January 2005.
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <http://www.rfc-editor.org/info/rfc3986>.
 
    [RFC4627]  Crockford, D., "The application/json Media Type for
-              JavaScript Object Notation (JSON)", RFC 4627, July 2006.
+              JavaScript Object Notation (JSON)", RFC 4627,
+              DOI 10.17487/RFC4627, July 2006,
+              <http://www.rfc-editor.org/info/rfc4627>.
 
-   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988, October 2010.
+   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
+              DOI 10.17487/RFC5988, October 2010,
+              <http://www.rfc-editor.org/info/rfc5988>.
 
    [RFC6570]  Gregorio, J., Fielding, R., Hadley, M., Nottingham, M.,
-              and D. Orchard, "URI Template", RFC 6570, March 2012.
+              and D. Orchard, "URI Template", RFC 6570,
+              DOI 10.17487/RFC6570, March 2012,
+              <http://www.rfc-editor.org/info/rfc6570>.
 
    [W3C.NOTE-curie-20101216]
               Birbeck, M. and S. McCarron, "CURIE Syntax 1.0", World
@@ -545,15 +554,6 @@ Appendix A.  Acknowledgements
    Thanks to Darrel Miller, Mike Amundsen, and everyone in hal-discuss
    for their suggestions and feedback.
 
-   The author takes all responsibility for errors and omissions.
-
-Appendix B.  Frequently Asked Questions
-
-
-
-
-
-
 
 
 
@@ -561,6 +561,10 @@ Kelly                   Expires November 12, 2016              [Page 10]
 
 Internet-Draft     JSON Hypertext Application Language          May 2016
 
+
+   The author takes all responsibility for errors and omissions.
+
+Appendix B.  Frequently Asked Questions
 
 B.1.  How should a client know the meaning/structure/semantics/type of a
       resource?
@@ -602,6 +606,18 @@ B.5.  Why does HAL have no forms?
    capabilities.  An additional media type is planned for the future
    which will add form-like controls on top of HAL.
 
+
+
+
+
+
+
+
+Kelly                   Expires November 12, 2016              [Page 11]
+
+Internet-Draft     JSON Hypertext Application Language          May 2016
+
+
 Author's Address
 
    Mike Kelly
@@ -613,4 +629,44 @@ Author's Address
 
 
 
-Kelly                   Expires November 12, 2016              [Page 11]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kelly                   Expires November 12, 2016              [Page 12]
