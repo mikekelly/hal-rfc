@@ -6,8 +6,8 @@
 <!ENTITY rfc4627 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4627.xml'>
 <!ENTITY rfc5988 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml'>
 <!ENTITY rfc6570 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>
+<!ENTITY rfc6906 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6906.xml'>
 <!ENTITY NOTE-curie SYSTEM 'http://xml.resource.org/public/rfc/bibxml4/reference.W3C.NOTE-curie-20101216.xml'>
-<!ENTITY wilde-profile-link SYSTEM 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.wilde-profile-link.xml'>
 ]>
 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -162,7 +162,7 @@ Content-Type: application/hal+json
 
       <section anchor="link-profile" title="profile">
         <t>The "profile" property is OPTIONAL.</t>
-        <t>Its value is a string which is a URI that hints about the profile (as defined by <xref target="I-D.wilde-profile-link" />) of the target resource.</t>
+        <t>Its value is a string which is a URI that hints about the profile (as defined by <xref target="RFC6906" />) of the target resource.</t>
       </section>
 
       <section anchor="link-title" title="title">
@@ -226,7 +226,7 @@ Content-Type: application/hal+json
 
     <section anchor="media-type-parameters" title="Media Type Parameters">
       <section anchor="profile-parmeter" title="profile">
-        <t>The media type identifier application/hal+json MAY also include an additional "profile" parameter (as defined by <xref target="I-D.wilde-profile-link" />)</t>
+        <t>The media type identifier application/hal+json MAY also include an additional "profile" parameter (as defined by <xref target="RFC6906" />)</t>
         <t>HAL documents that are served with the "profile" parameter still SHOULD include a "profile" link belonging to the root resource.</t>
       </section>
     </section>
@@ -321,7 +321,7 @@ Content-Type: application/hal+json
       &rfc4627;
       &rfc5988;
       &rfc6570;
-      &wilde-profile-link;
+      &rfc6906;
       &NOTE-curie;
     </references>
 
