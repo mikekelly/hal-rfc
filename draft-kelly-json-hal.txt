@@ -287,7 +287,7 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    The "profile" property is OPTIONAL.
 
    Its value is a string which is a URI that hints about the profile (as
-   defined by [I-D.wilde-profile-link]) of the target resource.
+   defined by [RFC6906]) of the target resource.
 
 5.7.  title
 
@@ -399,8 +399,7 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 7.1.  profile
 
    The media type identifier application/hal+json MAY also include an
-   additional "profile" parameter (as defined by
-   [I-D.wilde-profile-link])
+   additional "profile" parameter (as defined by [RFC6906])
 
    HAL documents that are served with the "profile" parameter still
    SHOULD include a "profile" link belonging to the root resource.
@@ -441,6 +440,7 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
    The above demonstrates the relation "http://docs.acme.com/relations/
    widgets" being abbreviated to "acme:widgets" via CURIE syntax.
+
 
 
 
@@ -516,10 +516,6 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
 11.  Normative References
 
-   [I-D.wilde-profile-link]
-              Wilde, E., "The 'profile' Link Relation Type", draft-
-              wilde-profile-link-04 (work in progress), October 2012.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -543,6 +539,10 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
               and D. Orchard, "URI Template", RFC 6570,
               DOI 10.17487/RFC6570, March 2012,
               <http://www.rfc-editor.org/info/rfc6570>.
+
+   [RFC6906]  Wilde, E., "The 'profile' Link Relation Type", RFC 6906,
+              DOI 10.17487/RFC6906, March 2013,
+              <http://www.rfc-editor.org/info/rfc6906>.
 
    [W3C.NOTE-curie-20101216]
               Birbeck, M. and S. McCarron, "CURIE Syntax 1.0", World
