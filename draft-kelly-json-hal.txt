@@ -408,7 +408,7 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
 8.1.  Self Link
 
-   Each Resource Object SHOULD contain a 'self' link that corresponds
+   Each Resource Object MUST contain a 'self' link that corresponds
    with the IANA registered 'self' relation (as defined by [RFC5988])
    whose target is the resource's URI.
 
