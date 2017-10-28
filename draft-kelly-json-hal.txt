@@ -303,6 +303,13 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    Its value is a string and is intended for indicating the language of
    the target resource (as defined by [RFC5988]).
 
+5.9.  seen
+
+   The "seen" property is OPTIONAL.
+
+   Its value is a string intended for stating the last observation time 
+   of the target resource (as defined by [RFC5988]).
+
 6.  Example Document
 
    The following is an example document representing a list of orders
