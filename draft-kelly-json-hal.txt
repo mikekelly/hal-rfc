@@ -308,7 +308,7 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    The "seen" property is OPTIONAL.
 
    Its value is a string intended for stating the last observation time 
-   of the target resource (as defined by [RFC5988]).
+   of the target resource (as defined by [RFC3339]).
 
 6.  Example Document
 
