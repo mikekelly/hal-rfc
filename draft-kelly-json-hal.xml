@@ -177,7 +177,7 @@ Content-Type: application/hal+json
 
       <section anchor="link-seen" title="seen">
         <t>The "seen" property is OPTIONAL.</t>
-        <t>Its value is a string intended for stating the last observation time of the target resource (as defined by <xref target="RFC5988"/>).</t>
+        <t>Its value is a string intended for stating the last observation time of the target resource (as defined by <xref target="RFC3339"/>).</t>
       </section>
     </section>
 
