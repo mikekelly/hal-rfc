@@ -1,7 +1,5 @@
 
 
-
-
 Network Working Group                                           M. Kelly
 Internet-Draft                                                 Stateless
 Intended status: Informational                              May 11, 2016
@@ -76,6 +74,7 @@ Table of Contents
      5.6.  profile . . . . . . . . . . . . . . . . . . . . . . . . .   6
      5.7.  title . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      5.8.  hreflang  . . . . . . . . . . . . . . . . . . . . . . . .   6
+     5.9.  seen  . . . . . . . . . . . . . . . . . . . . . . . . . .   6
    6.  Example Document  . . . . . . . . . . . . . . . . . . . . . .   6
    7.  Media Type Parameters . . . . . . . . . . . . . . . . . . . .   8
      7.1.  profile . . . . . . . . . . . . . . . . . . . . . . . . .   8
@@ -86,7 +85,7 @@ Table of Contents
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
    11. Normative References  . . . . . . . . . . . . . . . . . . . .  10
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  11
    Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  11
      B.1.  How should a client know the
            meaning/structure/semantics/type of a resource? . . . . .  11
@@ -105,7 +104,6 @@ Table of Contents
    The JSON Hypertext Application Language (HAL) is a standard which
    establishes conventions for expressing hypermedia controls, such as
    links, with JSON [RFC4627].
-
 
 
 
@@ -307,19 +305,12 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
    The "seen" property is OPTIONAL.
 
-   Its value is a string intended for stating the last observation time 
+   Its value is a string intended for stating the last observation time
    of the target resource (as defined by [RFC3339]).
 
 6.  Example Document
 
    The following is an example document representing a list of orders
-
-
-
-
-
-
-
 
 
 
@@ -526,40 +517,40 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
+              Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002,
+              <https://www.rfc-editor.org/info/rfc3339>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <http://www.rfc-editor.org/info/rfc3986>.
+              <https://www.rfc-editor.org/info/rfc3986>.
 
    [RFC4627]  Crockford, D., "The application/json Media Type for
               JavaScript Object Notation (JSON)", RFC 4627,
               DOI 10.17487/RFC4627, July 2006,
-              <http://www.rfc-editor.org/info/rfc4627>.
+              <https://www.rfc-editor.org/info/rfc4627>.
 
    [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
               DOI 10.17487/RFC5988, October 2010,
-              <http://www.rfc-editor.org/info/rfc5988>.
+              <https://www.rfc-editor.org/info/rfc5988>.
 
    [RFC6570]  Gregorio, J., Fielding, R., Hadley, M., Nottingham, M.,
               and D. Orchard, "URI Template", RFC 6570,
               DOI 10.17487/RFC6570, March 2012,
-              <http://www.rfc-editor.org/info/rfc6570>.
+              <https://www.rfc-editor.org/info/rfc6570>.
 
    [RFC6906]  Wilde, E., "The 'profile' Link Relation Type", RFC 6906,
               DOI 10.17487/RFC6906, March 2013,
-              <http://www.rfc-editor.org/info/rfc6906>.
+              <https://www.rfc-editor.org/info/rfc6906>.
 
    [W3C.NOTE-curie-20101216]
               Birbeck, M. and S. McCarron, "CURIE Syntax 1.0", World
               Wide Web Consortium NOTE NOTE-curie-20101216, December
               2010, <http://www.w3.org/TR/2010/NOTE-curie-20101216>.
 
-Appendix A.  Acknowledgements
-
-   Thanks to Darrel Miller, Mike Amundsen, and everyone in hal-discuss
-   for their suggestions and feedback.
 
 
 
@@ -568,6 +559,11 @@ Kelly                   Expires November 12, 2016              [Page 10]
 
 Internet-Draft     JSON Hypertext Application Language          May 2016
 
+
+Appendix A.  Acknowledgements
+
+   Thanks to Darrel Miller, Mike Amundsen, and everyone in hal-discuss
+   for their suggestions and feedback.
 
    The author takes all responsibility for errors and omissions.
 
@@ -615,11 +611,6 @@ B.5.  Why does HAL have no forms?
 
 
 
-
-
-
-
-
 Kelly                   Expires November 12, 2016              [Page 11]
 
 Internet-Draft     JSON Hypertext Application Language          May 2016
@@ -661,19 +652,3 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Kelly                   Expires November 12, 2016              [Page 12]
