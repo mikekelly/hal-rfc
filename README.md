@@ -17,6 +17,6 @@ Wonk-mode:
 
 The txt is actually generated from the xml so it's better if you edit the latter.
 You also get extra brownie points if you:
-* install xml2rfc (`pip install xml2rfc`)
+* install xml2rfc (`pip install xml2rfc`) or use https://xml2rfc.tools.ietf.org/
 * generate the txt from the xml
 * submit both in your PR
