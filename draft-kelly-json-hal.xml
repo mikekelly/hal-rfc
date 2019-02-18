@@ -7,7 +7,7 @@
 <!ENTITY rfc5988 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml'>
 <!ENTITY rfc6570 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>
 <!ENTITY rfc6906 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6906.xml'>
-<!ENTITY NOTE-curie SYSTEM 'http://xml.resource.org/public/rfc/bibxml4/reference.W3C.NOTE-curie-20101216.xml'>
+<!ENTITY rfc7595 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7595.xml'>
 ]>
 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -238,24 +238,26 @@ Content-Type: application/hal+json
 
       <section anchor="link-relations" title="Link relations">
         <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the discoverability of the API.</t>
-        <t>The CURIE Syntax <xref target="W3C.NOTE-curie-20101216" /> MAY be used for brevity for these URIs. CURIEs are established within a HAL document via a set of Link Objects with the relation type "curies" on the root Resource Object. These links contain a URI Template with the token 'rel', and are named via the "name" property.</t>
+
+        <section anchor="curies" title="CURIEs">  
+          <t>Private-use scheme names (as defined by <xref target="RFC7595" />) MAY be used. Generally, this is done for brevity of these URIs. To support providing documentation for these "compact" URIs, private-use schemes MAY be annotated with a CURIE; a Documentation URI that when dereferenced in a web browser provide relevant documentation. Documentation URIs MUST NOT be used as a link relation for the target Resource it attributes. CURIEs are established within a HAL document via a set of Link Objects with the relation type "curies" on the root Resource Object. These links contain a URI Template with the token 'rel', and are named via the "name" property.</t>
 
 <figure><artwork><![CDATA[
 {
   "_links": {
     "self": { "href": "/orders" },
     "curies": [{
-      "name": "acme",
+      "name": "com.acme",
       "href": "http://docs.acme.com/relations/{rel}",
       "templated": true
     }],
-    "acme:widgets": { "href": "/widgets" }
+    "com.acme:widgets": { "href": "/widgets" }
   }
 }
 ]]></artwork></figure>
 
-        <t>The above demonstrates the relation "http://docs.acme.com/relations/widgets" being abbreviated to "acme:widgets" via CURIE syntax.</t>
-
+          <t>The above demonstrates the use of a private-use scheme in the relation "com.acme:widget", as well as providing Documentation URI "http://docs.acme.com/relations/widgets" via a CURIE attribute.</t>
+        </section>
       </section>
 
       <section anchor="hypertext-cache-pattern" title="Hypertext Cache Pattern">
@@ -322,7 +324,7 @@ Content-Type: application/hal+json
       &rfc5988;
       &rfc6570;
       &rfc6906;
-      &NOTE-curie;
+      &rfc7595;
     </references>
 
     <!--<references title="Informative References">-->
