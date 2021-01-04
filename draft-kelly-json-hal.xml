@@ -3,6 +3,7 @@
 <!DOCTYPE rfc SYSTEM "http://xml.resource.org/authoring/rfc2629.dtd" [
 <!ENTITY rfc2119 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
 <!ENTITY rfc3986 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml'>
+<!ENTITY rfc3987 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3987.xml'>
 <!ENTITY rfc4627 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4627.xml'>
 <!ENTITY rfc5988 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml'>
 <!ENTITY rfc6570 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>
@@ -134,13 +135,13 @@ Content-Type: application/hal+json
 
       <section anchor="link-href" title="href">
         <t>The "href" property is REQUIRED.</t>
-        <t>Its value is either a URI <xref target="RFC3986"/> or a URI Template <xref target="RFC6570"/>.</t>
-        <t>If the value is a URI Template then the Link Object SHOULD have a "templated" attribute whose value is true.</t>
+        <t>Its value is either a URI <xref target="RFC3986"/>, or a URI Template <xref target="RFC6570"/>, or Safe_CURIE <xref target="W3C.NOTE-curie-20101216" /> resolving into either URI or URI Template.</t>
+        <t>If the value is a URI Template or Safe_CURIE resolving into URI Template then the Link Object SHOULD have a "templated" attribute whose value is true.</t>
       </section>
 
       <section anchor="link-templated" title="templated">
         <t>The "templated" property is OPTIONAL.</t>
-        <t>Its value is boolean and SHOULD be true when the Link Object's "href" property is a URI Template.</t>
+        <t>Its value is boolean and SHOULD be true when the Link Object's "href" property is a URI Template or Safe_CURIE resolving into URI Template.</t>
         <t>Its value SHOULD be considered false if it is undefined or any other value than true.</t>
       </section>
 
@@ -151,7 +152,7 @@ Content-Type: application/hal+json
 
       <section anchor="link-deprecation" title="deprecation">
         <t>The "deprecation" property is OPTIONAL.</t>
-        <t>Its presence indicates that the link is to be deprecated (i.e. removed) at a future date. Its value is a URL that SHOULD provide further information about the deprecation.</t>
+        <t>Its presence indicates that the link is to be deprecated (i.e. removed) at a future date. Its value is a URL or Safe_CURIE resolving into URL that SHOULD provide further information about the deprecation.</t>
         <t>A client SHOULD provide some notification (for example, by logging a warning message) whenever it traverses over a link that has this property. The notification SHOULD include the deprecation property's value so that a client maintainer can easily find information about the deprecation.</t>
       </section>
 
@@ -162,7 +163,7 @@ Content-Type: application/hal+json
 
       <section anchor="link-profile" title="profile">
         <t>The "profile" property is OPTIONAL.</t>
-        <t>Its value is a string which is a URI that hints about the profile (as defined by <xref target="RFC6906" />) of the target resource.</t>
+        <t>Its value is a string which is a URI or Safe_CURIE resolving into URI that hints about the profile (as defined by <xref target="RFC6906" />) of the target resource.</t>
       </section>
 
       <section anchor="link-title" title="title">
@@ -236,6 +237,14 @@ Content-Type: application/hal+json
         <t>Each Resource Object SHOULD contain a 'self' link that corresponds with the IANA registered 'self' relation (as defined by <xref target="RFC5988"/>) whose target is the resource's URI.</t>
       </section>
 
+      <section anchor="safe-curies-binding" title="Safe CUIREs binding">
+        <t>The CURIE Syntax document <xref target="NOTE-curie" /> requires the prefix binding to build the IRI. In the HAL document the binding is established in a set of Link Objects with the relation type "curies" on the root Resource Object. The "name" attribute of the link defines the CURIE prefix bound to the value of the "href" attribute.</t>
+        <t>If the Link value is not a template than final URI is constructed by concatenating "href" value of the curies link with reference part of the Safe_CURI "href".</t>
+        <t>If the Link value is marked as a template then it's "href" attribute is a URI Template with the some or all of tokens 'ihost', 'port', 'ipath', 'iquery', 'ifragment' as defined in <xref target="rfc3987"/> and/or 'rel'. The values to substitute tokens MUST be taken from the Link object referencing a CURIE.</t>
+        <t>The binding without or empty "name" can be used as default</t>
+        <t>The Link, using CURIE to shorten its href value also can be a template. In this case this template should be expand to the URI before it would be applied to bound CURIE.</t>
+	  </section>
+
       <section anchor="link-relations" title="Link relations">
         <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the discoverability of the API.</t>
         <t>The CURIE Syntax <xref target="W3C.NOTE-curie-20101216" /> MAY be used for brevity for these URIs. CURIEs are established within a HAL document via a set of Link Objects with the relation type "curies" on the root Resource Object. These links contain a URI Template with the token 'rel', and are named via the "name" property.</t>
@@ -243,18 +252,21 @@ Content-Type: application/hal+json
 <figure><artwork><![CDATA[
 {
   "_links": {
-    "self": { "href": "/orders" },
+    "self": { "href": "[host:/orders]" },
     "curies": [{
       "name": "acme",
-      "href": "http://docs.acme.com/relations/{rel}",
+      "href": "http://docs.acme.com/relations/{rel}/doc.html",
       "templated": true
-    }],
-    "acme:widgets": { "href": "/widgets" }
+    },{
+      "name": "host",
+      "href": "http://docs.acme.com"
+	  }],
+    "acme:widgets": { "href": "[host:/widgets]" }
   }
 }
 ]]></artwork></figure>
 
-        <t>The above demonstrates the relation "http://docs.acme.com/relations/widgets" being abbreviated to "acme:widgets" via CURIE syntax.</t>
+        <t>The above demonstrates the relation "http://docs.acme.com/relations/widgets/doc.html" being abbreviated to "acme:widgets", the href "http://docs.acme.com/widgets" being abbreviated to "host:/widgets" and self href "http://docs.acme.com/orders" being abbreviated to "host:orders" via CURIE syntax.</t>
 
       </section>
 
@@ -318,6 +330,7 @@ Content-Type: application/hal+json
     <references title="Normative References">
       &rfc2119;
       &rfc3986;
+      &rfc3987;
       &rfc4627;
       &rfc5988;
       &rfc6570;
