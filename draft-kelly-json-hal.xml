@@ -238,9 +238,9 @@ Content-Type: application/hal+json
       </section>
 
       <section anchor="safe-curies-binding" title="Safe CUIREs binding">
-        <t>The CURIE Syntax document <xref target="NOTE-curie" /> requires the prefix binding to build the IRI. In the HAL document the binding is established in a set of Link Objects with the relation type "curies" on the root Resource Object. The "name" attribute of the link defines the CURIE prefix bound to the value of the "href" attribute.</t>
+        <t>The CURIE Syntax document <xref target="W3C.NOTE-curie-20101216" /> requires the prefix binding to build the IRI. In the HAL document the binding is established in a set of Link Objects with the relation type "curies" on the root Resource Object. The "name" attribute of the link defines the CURIE prefix bound to the value of the "href" attribute.</t>
         <t>If the Link value is not a template than final URI is constructed by concatenating "href" value of the curies link with reference part of the Safe_CURI "href".</t>
-        <t>If the Link value is marked as a template then it's "href" attribute is a URI Template with the some or all of tokens 'ihost', 'port', 'ipath', 'iquery', 'ifragment' as defined in <xref target="rfc3987"/> and/or 'rel'. The values to substitute tokens MUST be taken from the Link object referencing a CURIE.</t>
+        <t>If the Link value is marked as a template then it's "href" attribute is a URI Template with the some or all of tokens 'ihost', 'port', 'ipath', 'iquery', 'ifragment' as defined in <xref target="RFC3987"/> and/or 'rel'. The values to substitute tokens MUST be taken from the Link object referencing a CURIE.</t>
         <t>The binding without or empty "name" can be used as default</t>
         <t>The Link, using CURIE to shorten its href value also can be a template. In this case this template should be expand to the URI before it would be applied to bound CURIE.</t>
 	  </section>
