@@ -72,7 +72,7 @@ Table of Contents
      5.2.  templated . . . . . . . . . . . . . . . . . . . . . . . .   5
      5.3.  type  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      5.4.  deprecation . . . . . . . . . . . . . . . . . . . . . . .   5
-     5.5.  name  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     5.5.  name  . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      5.6.  profile . . . . . . . . . . . . . . . . . . . . . . . . .   6
      5.7.  title . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      5.8.  hreflang  . . . . . . . . . . . . . . . . . . . . . . . .   6
@@ -81,20 +81,21 @@ Table of Contents
      7.1.  profile . . . . . . . . . . . . . . . . . . . . . . . . .   8
    8.  Recommendations . . . . . . . . . . . . . . . . . . . . . . .   8
      8.1.  Self Link . . . . . . . . . . . . . . . . . . . . . . . .   8
-     8.2.  Link relations  . . . . . . . . . . . . . . . . . . . . .   8
-     8.3.  Hypertext Cache Pattern . . . . . . . . . . . . . . . . .   9
+     8.2.  Safe CUIREs binding . . . . . . . . . . . . . . . . . . .   8
+     8.3.  Link relations  . . . . . . . . . . . . . . . . . . . . .   8
+     8.4.  Hypertext Cache Pattern . . . . . . . . . . . . . . . . .   9
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
    11. Normative References  . . . . . . . . . . . . . . . . . . . .  10
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  11
    Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  11
      B.1.  How should a client know the
            meaning/structure/semantics/type of a resource? . . . . .  11
-     B.2.  Where can I find libraries for working with HAL?  . . . .  11
+     B.2.  Where can I find libraries for working with HAL?  . . . .  12
      B.3.  Why are the reserved properties prefixed with an
-           underscore? . . . . . . . . . . . . . . . . . . . . . . .  11
-     B.4.  Are all underscore-prefixed properties reserved?  . . . .  11
-     B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . .  11
+           underscore? . . . . . . . . . . . . . . . . . . . . . . .  12
+     B.4.  Are all underscore-prefixed properties reserved?  . . . .  12
+     B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . .  12
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
@@ -105,7 +106,6 @@ Table of Contents
    The JSON Hypertext Application Language (HAL) is a standard which
    establishes conventions for expressing hypermedia controls, such as
    links, with JSON [RFC4627].
-
 
 
 
@@ -230,17 +230,20 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
    The "href" property is REQUIRED.
 
-   Its value is either a URI [RFC3986] or a URI Template [RFC6570].
+   Its value is either a URI [RFC3986], or a URI Template [RFC6570], or
+   Safe_CURIE [W3C.NOTE-curie-20101216] resolving into either URI or URI
+   Template.
 
-   If the value is a URI Template then the Link Object SHOULD have a
-   "templated" attribute whose value is true.
+   If the value is a URI Template or Safe_CURIE resolving into URI
+   Template then the Link Object SHOULD have a "templated" attribute
+   whose value is true.
 
 5.2.  templated
 
    The "templated" property is OPTIONAL.
 
    Its value is boolean and SHOULD be true when the Link Object's "href"
-   property is a URI Template.
+   property is a URI Template or Safe_CURIE resolving into URI Template.
 
    Its value SHOULD be considered false if it is undefined or any other
    value than true.
@@ -257,8 +260,9 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    The "deprecation" property is OPTIONAL.
 
    Its presence indicates that the link is to be deprecated (i.e.
-   removed) at a future date.  Its value is a URL that SHOULD provide
-   further information about the deprecation.
+   removed) at a future date.  Its value is a URL or Safe_CURIE
+   resolving into URL that SHOULD provide further information about the
+   deprecation.
 
    A client SHOULD provide some notification (for example, by logging a
    warning message) whenever it traverses over a link that has this
@@ -266,12 +270,8 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    value so that a client maintainer can easily find information about
    the deprecation.
 
-5.5.  name
 
-   The "name" property is OPTIONAL.
 
-   Its value MAY be used as a secondary key for selecting Link Objects
-   which share the same relation type.
 
 
 
@@ -282,12 +282,20 @@ Kelly                   Expires November 12, 2016               [Page 5]
 Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
+5.5.  name
+
+   The "name" property is OPTIONAL.
+
+   Its value MAY be used as a secondary key for selecting Link Objects
+   which share the same relation type.
+
 5.6.  profile
 
    The "profile" property is OPTIONAL.
 
-   Its value is a string which is a URI that hints about the profile (as
-   defined by [RFC6906]) of the target resource.
+   Its value is a string which is a URI or Safe_CURIE resolving into URI
+   that hints about the profile (as defined by [RFC6906]) of the target
+   resource.
 
 5.7.  title
 
@@ -306,14 +314,6 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 6.  Example Document
 
    The following is an example document representing a list of orders
-
-
-
-
-
-
-
-
 
 
 
@@ -412,11 +412,44 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    with the IANA registered 'self' relation (as defined by [RFC5988])
    whose target is the resource's URI.
 
-8.2.  Link relations
+8.2.  Safe CUIREs binding
+
+   The CURIE Syntax document [W3C.NOTE-curie-20101216] requires the
+   prefix binding to build the IRI.  In the HAL document the binding is
+   established in a set of Link Objects with the relation type "curies"
+   on the root Resource Object.  The "name" attribute of the link
+   defines the CURIE prefix bound to the value of the "href" attribute.
+
+   If the Link value is not a template than final URI is constructed by
+   concatenating "href" value of the curies link with reference part of
+   the Safe_CURI "href".
+
+   If the Link value is marked as a template then it's "href" attribute
+   is a URI Template with the some or all of tokens 'ihost', 'port',
+   'ipath', 'iquery', 'ifragment' as defined in [RFC3987] and/or 'rel'.
+   The values to substitute tokens MUST be taken from the Link object
+   referencing a CURIE.
+
+   The binding without or empty "name" can be used as default
+
+   The Link, using CURIE to shorten its href value also can be a
+   template.  In this case this template should be expand to the URI
+   before it would be applied to bound CURIE.
+
+8.3.  Link relations
 
    Custom link relation types (Extension Relation Types in [RFC5988])
    SHOULD be URIs that when dereferenced in a web browser provide
    relevant documentation, in the form of an HTML page, about the
+
+
+
+
+Kelly                   Expires November 12, 2016               [Page 8]
+
+Internet-Draft     JSON Hypertext Application Language          May 2016
+
+
    meaning and/or behaviour of the target Resource.  This will improve
    the discoverability of the API.
 
@@ -428,29 +461,26 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
    {
      "_links": {
-       "self": { "href": "/orders" },
+       "self": { "href": "[host:/orders]" },
        "curies": [{
          "name": "acme",
-         "href": "http://docs.acme.com/relations/{rel}",
+         "href": "http://docs.acme.com/relations/{rel}/doc.html",
          "templated": true
-       }],
-       "acme:widgets": { "href": "/widgets" }
+       },{
+         "name": "host",
+         "href": "http://docs.acme.com"
+             }],
+       "acme:widgets": { "href": "[host:/widgets]" }
      }
    }
 
-   The above demonstrates the relation "http://docs.acme.com/relations/
-   widgets" being abbreviated to "acme:widgets" via CURIE syntax.
+   The above demonstrates the relation
+   "http://docs.acme.com/relations/widgets/doc.html" being abbreviated
+   to "acme:widgets", the href "http://docs.acme.com/widgets" being
+   abbreviated to "host:/widgets" and self href "http://docs.acme.com/
+   orders" being abbreviated to "host:orders" via CURIE syntax.
 
-
-
-
-
-Kelly                   Expires November 12, 2016               [Page 8]
-
-Internet-Draft     JSON Hypertext Application Language          May 2016
-
-
-8.3.  Hypertext Cache Pattern
+8.4.  Hypertext Cache Pattern
 
    The "hypertext cache pattern" allows servers to use embedded
    resources to dynamically reduce the number of requests a client
@@ -467,6 +497,14 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    Servers SHOULD NOT entirely "swap out" a link for an embedded
    resource (or vice versa) because client support for this technique is
    OPTIONAL.
+
+
+
+
+Kelly                   Expires November 12, 2016               [Page 9]
+
+Internet-Draft     JSON Hypertext Application Language          May 2016
+
 
    The following examples shows the hypertext cache pattern applied to
    an "author" link:
@@ -499,13 +537,6 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    }
 
 
-
-
-Kelly                   Expires November 12, 2016               [Page 9]
-
-Internet-Draft     JSON Hypertext Application Language          May 2016
-
-
 9.  Security Considerations
 
    TBD
@@ -519,40 +550,9 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
+              <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66,
-              RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <http://www.rfc-editor.org/info/rfc3986>.
 
-   [RFC4627]  Crockford, D., "The application/json Media Type for
-              JavaScript Object Notation (JSON)", RFC 4627,
-              DOI 10.17487/RFC4627, July 2006,
-              <http://www.rfc-editor.org/info/rfc4627>.
-
-   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
-              DOI 10.17487/RFC5988, October 2010,
-              <http://www.rfc-editor.org/info/rfc5988>.
-
-   [RFC6570]  Gregorio, J., Fielding, R., Hadley, M., Nottingham, M.,
-              and D. Orchard, "URI Template", RFC 6570,
-              DOI 10.17487/RFC6570, March 2012,
-              <http://www.rfc-editor.org/info/rfc6570>.
-
-   [RFC6906]  Wilde, E., "The 'profile' Link Relation Type", RFC 6906,
-              DOI 10.17487/RFC6906, March 2013,
-              <http://www.rfc-editor.org/info/rfc6906>.
-
-   [W3C.NOTE-curie-20101216]
-              Birbeck, M. and S. McCarron, "CURIE Syntax 1.0", World
-              Wide Web Consortium NOTE NOTE-curie-20101216, December
-              2010, <http://www.w3.org/TR/2010/NOTE-curie-20101216>.
-
-Appendix A.  Acknowledgements
-
-   Thanks to Darrel Miller, Mike Amundsen, and everyone in hal-discuss
-   for their suggestions and feedback.
 
 
 
@@ -561,6 +561,43 @@ Kelly                   Expires November 12, 2016              [Page 10]
 
 Internet-Draft     JSON Hypertext Application Language          May 2016
 
+
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/info/rfc3986>.
+
+   [RFC3987]  Duerst, M. and M. Suignard, "Internationalized Resource
+              Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987,
+              January 2005, <https://www.rfc-editor.org/info/rfc3987>.
+
+   [RFC4627]  Crockford, D., "The application/json Media Type for
+              JavaScript Object Notation (JSON)", RFC 4627,
+              DOI 10.17487/RFC4627, July 2006,
+              <https://www.rfc-editor.org/info/rfc4627>.
+
+   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
+              DOI 10.17487/RFC5988, October 2010,
+              <https://www.rfc-editor.org/info/rfc5988>.
+
+   [RFC6570]  Gregorio, J., Fielding, R., Hadley, M., Nottingham, M.,
+              and D. Orchard, "URI Template", RFC 6570,
+              DOI 10.17487/RFC6570, March 2012,
+              <https://www.rfc-editor.org/info/rfc6570>.
+
+   [RFC6906]  Wilde, E., "The 'profile' Link Relation Type", RFC 6906,
+              DOI 10.17487/RFC6906, March 2013,
+              <https://www.rfc-editor.org/info/rfc6906>.
+
+   [W3C.NOTE-curie-20101216]
+              Birbeck, M. and S. McCarron, "CURIE Syntax 1.0", World
+              Wide Web Consortium NOTE NOTE-curie-20101216, December
+              2010, <https://www.w3.org/TR/2010/NOTE-curie-20101216>.
+
+Appendix A.  Acknowledgements
+
+   Thanks to Darrel Miller, Mike Amundsen, and everyone in hal-discuss
+   for their suggestions and feedback.
 
    The author takes all responsibility for errors and omissions.
 
@@ -572,6 +609,15 @@ B.1.  How should a client know the meaning/structure/semantics/type of a
    There are two main approaches to solving this problem.  Both involve
    exposing additional documentation describing the resource which may
    be human and/or machine readable (i.e. an HTML page and/or a JSON
+
+
+
+
+Kelly                   Expires November 12, 2016              [Page 11]
+
+Internet-Draft     JSON Hypertext Application Language          May 2016
+
+
    Schema document).  The difference between the two approaches is in
    where that URI is shared with the client, which is either:
 
@@ -606,18 +652,6 @@ B.5.  Why does HAL have no forms?
    capabilities.  An additional media type is planned for the future
    which will add form-like controls on top of HAL.
 
-
-
-
-
-
-
-
-Kelly                   Expires November 12, 2016              [Page 11]
-
-Internet-Draft     JSON Hypertext Application Language          May 2016
-
-
 Author's Address
 
    Mike Kelly
@@ -625,40 +659,6 @@ Author's Address
 
    Email: mike@stateless.co
    URI:   http://stateless.co/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
