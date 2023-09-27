@@ -7,7 +7,6 @@
 <!ENTITY rfc5988 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml'>
 <!ENTITY rfc6570 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>
 <!ENTITY rfc6906 SYSTEM 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6906.xml'>
-<!ENTITY NOTE-curie SYSTEM 'http://xml.resource.org/public/rfc/bibxml4/reference.W3C.NOTE-curie-20101216.xml'>
 ]>
 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -22,7 +21,7 @@
 <?rfc comments="yes" ?>
 <?rfc inline="yes" ?>
 
-<rfc ipr="trust200902" docName="draft-kelly-json-hal-08" category="info">
+<rfc ipr="trust200902" docName="draft-kelly-json-hal-09" category="info" submissionType="IETF">
 
   <front>
 
@@ -35,7 +34,7 @@
         <uri>https://stateless.group/</uri>
       </address>
     </author>
-    <date year="2016" month="May" day="11"/>
+    <date year="2023" month="September" day="27"/>
 
     <abstract>
       <t>This document proposes a media type for representing resources and their relations with hyperlinks.</t>
@@ -237,8 +236,40 @@ Content-Type: application/hal+json
       </section>
 
       <section anchor="link-relations" title="Link relations">
-        <t>Custom link relation types (Extension Relation Types in <xref target="RFC5988"/>) SHOULD be URIs that when dereferenced in a web browser provide relevant documentation, in the form of an HTML page, about the meaning and/or behaviour of the target Resource. This will improve the discoverability of the API.</t>
-        <t>The CURIE Syntax <xref target="W3C.NOTE-curie-20101216" /> MAY be used for brevity for these URIs. CURIEs are established within a HAL document via a set of Link Objects with the relation type "curies" on the root Resource Object. These links contain a URI Template with the token 'rel', and are named via the "name" property.</t>
+        <t>
+          Custom link relation types (Extension Relation Types in
+          <xref target="RFC5988" />) SHOULD be URIs (or curies)
+          that when dereferenced in a web browser provide relevant
+          documentation, in the form of an HTML page, about the meaning and/or
+          behaviour of the target Resource. This will improve the
+          discoverability of the API.
+        </t>
+      </section>
+
+      <section anchor="curies" title="HAL curies">
+        <t>
+          HAL etablishes a mechanism called "curies" which allows for link
+          relation types that are compact and more human readable (eg.
+          "acme:widgets"), whilst still offering a way that they MAY be expanded into a
+          dereferencable URI providing documentation (eg. "https://docs.acme.com/relations/widgets")
+        </t>
+
+        <t>
+          To this end, HAL documents have a reserved link relation type called "curies".
+        </t>
+
+        <t>
+          HAL curies are established for a given Resource Object via an array of
+          Link Objects with the "curies" reserved link relation type. These
+          links contain a URI Template with the token 'rel', and are named via
+          the "name" property.
+        </t>
+
+        <t>
+          The following demonstrates the relation
+          "https://docs.acme.com/relations/widgets" being abbreviated to
+          "acme:widgets" using curies:
+        </t>
 
 <figure><artwork><![CDATA[
 {
@@ -254,7 +285,36 @@ Content-Type: application/hal+json
 }
 ]]></artwork></figure>
 
-        <t>The above demonstrates the relation "https://docs.acme.com/relations/widgets" being abbreviated to "acme:widgets" via CURIE syntax.</t>
+
+        <t>HAL curies can be used to create versioned link relation types like so:</t>
+
+<figure><artwork><![CDATA[
+{
+  "_links": {
+    "self": { "href": "/" },
+    "curies": [{
+      "name": "v1",
+      "href": "https://docs.example.com/relations/v1/{rel}",
+      "templated": true
+    },{
+      "name": "v2",
+      "href": "https://docs.example.com/relations/v2/{rel}",
+      "templated": true
+    }],
+    "v1:orders": {
+      "href": "https://api.example.com/orders",
+      "deprecation": "https://dev.example.com/deprecations/v1-orders"
+    },
+    "v2:orders": { "href": "https://api.example.com/order-list" }
+  }
+}
+]]></artwork></figure>
+
+        <t>
+          In cases where an embedded Resource defines its own curies which conflict with
+          those of its parent then, for links within this resource, these are
+          overwritten and SHOULD take precedence over the curies of the parent.
+        </t>
 
       </section>
 
@@ -322,7 +382,6 @@ Content-Type: application/hal+json
       &rfc5988;
       &rfc6570;
       &rfc6906;
-      &NOTE-curie;
     </references>
 
     <!--<references title="Informative References">-->
