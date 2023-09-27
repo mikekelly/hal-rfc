@@ -18,5 +18,5 @@ Wonk-mode:
 The txt is actually generated from the xml so it's better if you edit the latter.
 You also get extra brownie points if you:
 * install xml2rfc (`pip install xml2rfc`)
-* generate the txt from the xml
+* generate the txt from the xml (`xml2rfc xml2rfc draft-kelly-json-hal.xml --text`)
 * submit both in your PR
