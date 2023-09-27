@@ -31,8 +31,8 @@
     <author initials="M." surname="Kelly" fullname="Mike Kelly">
       <organization>Stateless</organization>
       <address>
-        <email>mike@stateless.co</email>
-        <uri>http://stateless.co/</uri>
+        <email>mike@stateless.group</email>
+        <uri>https://stateless.group/</uri>
       </address>
     </author>
     <date year="2016" month="May" day="11"/>
@@ -246,7 +246,7 @@ Content-Type: application/hal+json
     "self": { "href": "/orders" },
     "curies": [{
       "name": "acme",
-      "href": "http://docs.acme.com/relations/{rel}",
+      "href": "https://docs.acme.com/relations/{rel}",
       "templated": true
     }],
     "acme:widgets": { "href": "/widgets" }
@@ -254,7 +254,7 @@ Content-Type: application/hal+json
 }
 ]]></artwork></figure>
 
-        <t>The above demonstrates the relation "http://docs.acme.com/relations/widgets" being abbreviated to "acme:widgets" via CURIE syntax.</t>
+        <t>The above demonstrates the relation "https://docs.acme.com/relations/widgets" being abbreviated to "acme:widgets" via CURIE syntax.</t>
 
       </section>
 
@@ -349,7 +349,7 @@ Content-Type: application/hal+json
       </section>
 
       <section title="Where can I find libraries for working with HAL?">
-        <t>A list of libraries is maintained here: http://stateless.co/hal_specification.html</t>
+        <t>A list of libraries is maintained here: https://github.com/mikekelly/hal_specification/wiki/Libraries</t>
       </section>
 
       <section title="Why are the reserved properties prefixed with an underscore?">

@@ -431,14 +431,14 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
        "self": { "href": "/orders" },
        "curies": [{
          "name": "acme",
-         "href": "http://docs.acme.com/relations/{rel}",
+         "href": "https://docs.acme.com/relations/{rel}",
          "templated": true
        }],
        "acme:widgets": { "href": "/widgets" }
      }
    }
 
-   The above demonstrates the relation "http://docs.acme.com/relations/
+   The above demonstrates the relation "https://docs.acme.com/relations/
    widgets" being abbreviated to "acme:widgets" via CURIE syntax.
 
 
@@ -581,8 +581,8 @@ B.1.  How should a client know the meaning/structure/semantics/type of a
 
 B.2.  Where can I find libraries for working with HAL?
 
-   A list of libraries is maintained here: http://stateless.co/
-   hal_specification.html
+   A list of libraries is maintained here:
+   https://github.com/mikekelly/hal_specification/wiki/Libraries
 
 B.3.  Why are the reserved properties prefixed with an underscore?
 
@@ -618,8 +618,8 @@ Kelly                   Expires 12 November 2016               [Page 11]
 Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
-   Email: mike@stateless.co
-   URI:   http://stateless.co/
+   Email: mike@stateless.group
+   URI:   https://stateless.group/
 
 
 
