@@ -4,12 +4,12 @@
 
 Network Working Group                                           M. Kelly
 Internet-Draft                                                 Stateless
-Intended status: Informational                         27 September 2023
-Expires: 30 March 2024
+Intended status: Informational                            4 October 2023
+Expires: 6 April 2024
 
 
                   JSON Hypertext Application Language
-                        draft-kelly-json-hal-09
+                        draft-kelly-json-hal-10
 
 Abstract
 
@@ -31,7 +31,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 March 2024.
+   This Internet-Draft will expire on 6 April 2024.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Kelly                     Expires 30 March 2024                 [Page 1]
+Kelly                     Expires 6 April 2024                  [Page 1]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 Table of Contents
@@ -88,7 +88,7 @@ Table of Contents
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
    11. Normative References  . . . . . . . . . . . . . . . . . . . .  11
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  11
-   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  11
+   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  12
      B.1.  How should a client know the meaning/structure/semantics/
            type of a resource? . . . . . . . . . . . . . . . . . . .  12
      B.2.  Where can I find libraries for working with HAL?  . . . .  12
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Kelly                     Expires 30 March 2024                 [Page 2]
+Kelly                     Expires 6 April 2024                  [Page 2]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
    HAL is a generic media type with which Web APIs can be developed and
@@ -165,9 +165,9 @@ Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 
-Kelly                     Expires 30 March 2024                 [Page 3]
+Kelly                     Expires 6 April 2024                  [Page 3]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
    Here, we have a HAL document representing an order resource with the
@@ -221,9 +221,9 @@ Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 
-Kelly                     Expires 30 March 2024                 [Page 4]
+Kelly                     Expires 6 April 2024                  [Page 4]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 5.1.  href
@@ -277,9 +277,9 @@ Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 
-Kelly                     Expires 30 March 2024                 [Page 5]
+Kelly                     Expires 6 April 2024                  [Page 5]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 5.6.  profile
@@ -333,9 +333,9 @@ Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 
-Kelly                     Expires 30 March 2024                 [Page 6]
+Kelly                     Expires 6 April 2024                  [Page 6]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
    GET /orders HTTP/1.1
@@ -389,9 +389,9 @@ Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 
-Kelly                     Expires 30 March 2024                 [Page 7]
+Kelly                     Expires 6 April 2024                  [Page 7]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 7.  Media Type Parameters
@@ -445,9 +445,9 @@ Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 
-Kelly                     Expires 30 March 2024                 [Page 8]
+Kelly                     Expires 6 April 2024                  [Page 8]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
    {
@@ -501,9 +501,9 @@ Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 
-Kelly                     Expires 30 March 2024                 [Page 9]
+Kelly                     Expires 6 April 2024                  [Page 9]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
    Clients MAY be automated for this purpose so that, for any given link
@@ -551,20 +551,26 @@ Internet-Draft     JSON Hypertext Application Language    September 2023
 
 9.  Security Considerations
 
-   TBD
+   This media type does not contain executable content.
 
 
 
 
 
-Kelly                     Expires 30 March 2024                [Page 10]
+Kelly                     Expires 6 April 2024                 [Page 10]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
+
+   The information contained in the media type does not necessarily
+   require privacy or integrity services.
+
+   The security considerations of the JSON format apply to this media
+   type.
 
 10.  IANA Considerations
 
-   TBD
+   No IANA actions required.
 
 11.  Normative References
 
@@ -603,20 +609,16 @@ Appendix A.  Acknowledgements
 
    The author takes all responsibility for errors and omissions.
 
-Appendix B.  Frequently Asked Questions
 
 
 
 
-
-
-
-
-
-Kelly                     Expires 30 March 2024                [Page 11]
+Kelly                     Expires 6 April 2024                 [Page 11]
 
-Internet-Draft     JSON Hypertext Application Language    September 2023
+Internet-Draft     JSON Hypertext Application Language      October 2023
 
+
+Appendix B.  Frequently Asked Questions
 
 B.1.  How should a client know the meaning/structure/semantics/type of a
       resource?
@@ -667,6 +669,4 @@ Author's Address
 
 
 
-
-
-Kelly                     Expires 30 March 2024                [Page 12]
+Kelly                     Expires 6 April 2024                 [Page 12]

@@ -21,7 +21,7 @@
 <?rfc comments="yes" ?>
 <?rfc inline="yes" ?>
 
-<rfc ipr="trust200902" docName="draft-kelly-json-hal-09" category="info" submissionType="IETF">
+<rfc ipr="trust200902" docName="draft-kelly-json-hal-10" category="info" submissionType="IETF">
 
   <front>
 
@@ -34,7 +34,7 @@
         <uri>https://stateless.group/</uri>
       </address>
     </author>
-    <date year="2023" month="September" day="27"/>
+    <date year="2023" month="October" day="4"/>
 
     <abstract>
       <t>This document proposes a media type for representing resources and their relations with hyperlinks.</t>
@@ -362,13 +362,23 @@ Content-Type: application/hal+json
 
     <section anchor="security-considerations" title="Security Considerations">
 
-      <t>TBD</t>
+      <t>
+        This media type does not contain executable content.
+      </t>
+
+      <t>
+        The information contained in the media type does not necessarily  require privacy or integrity services.
+      </t>
+
+      <t>
+        The security considerations of the JSON format apply to this media type.
+      </t>
 
     </section>
 
     <section anchor="iana-considerations" title="IANA Considerations">
 
-      <t>TBD</t>
+      <t>No IANA actions required.</t>
 
     </section>
 
