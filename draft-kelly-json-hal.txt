@@ -4,12 +4,12 @@
 
 Network Working Group                                           M. Kelly
 Internet-Draft                                                 Stateless
-Intended status: Informational                               11 May 2016
-Expires: 12 November 2016
+Intended status: Informational                         27 September 2023
+Expires: 30 March 2024
 
 
                   JSON Hypertext Application Language
-                        draft-kelly-json-hal-08
+                        draft-kelly-json-hal-09
 
 Abstract
 
@@ -24,22 +24,22 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 November 2016.
+   This Internet-Draft will expire on 30 March 2024.
 
 Copyright Notice
 
-   Copyright (c) 2016 IETF Trust and the persons identified as the
+   Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents (http://trustee.ietf.org/
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
    license-info) in effect on the date of publication of this document.
    Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Kelly                   Expires 12 November 2016                [Page 1]
+Kelly                     Expires 30 March 2024                 [Page 1]
 
-Internet-Draft     JSON Hypertext Application Language          May 2016
+Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 Table of Contents
@@ -82,20 +82,21 @@ Table of Contents
    8.  Recommendations . . . . . . . . . . . . . . . . . . . . . . .   8
      8.1.  Self Link . . . . . . . . . . . . . . . . . . . . . . . .   8
      8.2.  Link relations  . . . . . . . . . . . . . . . . . . . . .   8
-     8.3.  Hypertext Cache Pattern . . . . . . . . . . . . . . . . .   9
+     8.3.  HAL curies  . . . . . . . . . . . . . . . . . . . . . . .   8
+     8.4.  Hypertext Cache Pattern . . . . . . . . . . . . . . . . .   9
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
-   11. Normative References  . . . . . . . . . . . . . . . . . . . .  10
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
+   11. Normative References  . . . . . . . . . . . . . . . . . . . .  11
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  11
    Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  11
      B.1.  How should a client know the meaning/structure/semantics/
-           type of a resource? . . . . . . . . . . . . . . . . . . .  11
-     B.2.  Where can I find libraries for working with HAL?  . . . .  11
+           type of a resource? . . . . . . . . . . . . . . . . . . .  12
+     B.2.  Where can I find libraries for working with HAL?  . . . .  12
      B.3.  Why are the reserved properties prefixed with an
-           underscore? . . . . . . . . . . . . . . . . . . . . . . .  11
-     B.4.  Are all underscore-prefixed properties reserved?  . . . .  11
-     B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . .  11
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
+           underscore? . . . . . . . . . . . . . . . . . . . . . . .  12
+     B.4.  Are all underscore-prefixed properties reserved?  . . . .  12
+     B.5.  Why does HAL have no forms? . . . . . . . . . . . . . . .  12
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
 
@@ -108,10 +109,9 @@ Table of Contents
 
 
 
-
-Kelly                   Expires 12 November 2016                [Page 2]
+Kelly                     Expires 30 March 2024                 [Page 2]
 
-Internet-Draft     JSON Hypertext Application Language          May 2016
+Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
    HAL is a generic media type with which Web APIs can be developed and
@@ -165,9 +165,9 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 
-Kelly                   Expires 12 November 2016                [Page 3]
+Kelly                     Expires 30 March 2024                 [Page 3]
 
-Internet-Draft     JSON Hypertext Application Language          May 2016
+Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
    Here, we have a HAL document representing an order resource with the
@@ -221,9 +221,9 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 
-Kelly                   Expires 12 November 2016                [Page 4]
+Kelly                     Expires 30 March 2024                 [Page 4]
 
-Internet-Draft     JSON Hypertext Application Language          May 2016
+Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 5.1.  href
@@ -277,9 +277,9 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 
-Kelly                   Expires 12 November 2016                [Page 5]
+Kelly                     Expires 30 March 2024                 [Page 5]
 
-Internet-Draft     JSON Hypertext Application Language          May 2016
+Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 5.6.  profile
@@ -333,9 +333,9 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 
-Kelly                   Expires 12 November 2016                [Page 6]
+Kelly                     Expires 30 March 2024                 [Page 6]
 
-Internet-Draft     JSON Hypertext Application Language          May 2016
+Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
    GET /orders HTTP/1.1
@@ -389,9 +389,9 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 
-Kelly                   Expires 12 November 2016                [Page 7]
+Kelly                     Expires 30 March 2024                 [Page 7]
 
-Internet-Draft     JSON Hypertext Application Language          May 2016
+Internet-Draft     JSON Hypertext Application Language    September 2023
 
 
 7.  Media Type Parameters
@@ -415,16 +415,40 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 8.2.  Link relations
 
    Custom link relation types (Extension Relation Types in [RFC5988])
-   SHOULD be URIs that when dereferenced in a web browser provide
-   relevant documentation, in the form of an HTML page, about the
-   meaning and/or behaviour of the target Resource.  This will improve
-   the discoverability of the API.
+   SHOULD be URIs (or curies) that when dereferenced in a web browser
+   provide relevant documentation, in the form of an HTML page, about
+   the meaning and/or behaviour of the target Resource.  This will
+   improve the discoverability of the API.
 
-   The CURIE Syntax [W3C.NOTE-curie-20101216] MAY be used for brevity
-   for these URIs.  CURIEs are established within a HAL document via a
-   set of Link Objects with the relation type "curies" on the root
-   Resource Object.  These links contain a URI Template with the token
-   'rel', and are named via the "name" property.
+8.3.  HAL curies
+
+   HAL etablishes a mechanism called "curies" which allows for link
+   relation types that are compact and more human readable (eg.
+   "acme:widgets"), whilst still offering a way that they MAY be
+   expanded into a dereferencable URI providing documentation (eg.
+   "https://docs.acme.com/relations/widgets")
+
+   To this end, HAL documents have a reserved link relation type called
+   "curies".
+
+   HAL curies are established for a given Resource Object via an array
+   of Link Objects with the "curies" reserved link relation type.  These
+   links contain a URI Template with the token 'rel', and are named via
+   the "name" property.
+
+   The following demonstrates the relation
+   "https://docs.acme.com/relations/widgets" being abbreviated to
+   "acme:widgets" using curies:
+
+
+
+
+
+
+Kelly                     Expires 30 March 2024                 [Page 8]
+
+Internet-Draft     JSON Hypertext Application Language    September 2023
+
 
    {
      "_links": {
@@ -438,23 +462,49 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
      }
    }
 
-   The above demonstrates the relation "https://docs.acme.com/relations/
-   widgets" being abbreviated to "acme:widgets" via CURIE syntax.
+   HAL curies can be used to create versioned link relation types like
+   so:
 
+   {
+     "_links": {
+       "self": { "href": "/" },
+       "curies": [{
+         "name": "v1",
+         "href": "https://docs.example.com/relations/v1/{rel}",
+         "templated": true
+       },{
+         "name": "v2",
+         "href": "https://docs.example.com/relations/v2/{rel}",
+         "templated": true
+       }],
+       "v1:orders": {
+         "href": "https://api.example.com/orders",
+         "deprecation": "https://dev.example.com/deprecations/v1-orders"
+       },
+       "v2:orders": { "href": "https://api.example.com/order-list" }
+     }
+   }
 
+   In cases where an embedded Resource defines its own curies which
+   conflict with those of its parent then, for links within this
+   resource, these are overwritten and SHOULD take precedence over the
+   curies of the parent.
 
-
-
-Kelly                   Expires 12 November 2016                [Page 8]
-
-Internet-Draft     JSON Hypertext Application Language          May 2016
-
-
-8.3.  Hypertext Cache Pattern
+8.4.  Hypertext Cache Pattern
 
    The "hypertext cache pattern" allows servers to use embedded
    resources to dynamically reduce the number of requests a client
    makes, improving the efficiency and performance of the application.
+
+
+
+
+
+
+Kelly                     Expires 30 March 2024                 [Page 9]
+
+Internet-Draft     JSON Hypertext Application Language    September 2023
+
 
    Clients MAY be automated for this purpose so that, for any given link
    relation, they will read from an embedded resource (if present) in
@@ -499,16 +549,18 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
    }
 
 
-
-
-Kelly                   Expires 12 November 2016                [Page 9]
-
-Internet-Draft     JSON Hypertext Application Language          May 2016
-
-
 9.  Security Considerations
 
    TBD
+
+
+
+
+
+Kelly                     Expires 30 March 2024                [Page 10]
+
+Internet-Draft     JSON Hypertext Application Language    September 2023
+
 
 10.  IANA Considerations
 
@@ -544,27 +596,27 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
               DOI 10.17487/RFC6906, March 2013,
               <https://www.rfc-editor.org/info/rfc6906>.
 
-   [W3C.NOTE-curie-20101216]
-              Birbeck, M., Ed. and S. McCarron, Ed., "CURIE Syntax 1.0",
-              W3C NOTE NOTE-curie-20101216, W3C NOTE-curie-20101216, 16
-              December 2010,
-              <https://www.w3.org/TR/2010/NOTE-curie-20101216/>.
-
 Appendix A.  Acknowledgements
 
    Thanks to Darrel Miller, Mike Amundsen, and everyone in hal-discuss
    for their suggestions and feedback.
 
-
-
-Kelly                   Expires 12 November 2016               [Page 10]
-
-Internet-Draft     JSON Hypertext Application Language          May 2016
-
-
    The author takes all responsibility for errors and omissions.
 
 Appendix B.  Frequently Asked Questions
+
+
+
+
+
+
+
+
+
+Kelly                     Expires 30 March 2024                [Page 11]
+
+Internet-Draft     JSON Hypertext Application Language    September 2023
+
 
 B.1.  How should a client know the meaning/structure/semantics/type of a
       resource?
@@ -610,14 +662,6 @@ Author's Address
 
    Mike Kelly
    Stateless
-
-
-
-Kelly                   Expires 12 November 2016               [Page 11]
-
-Internet-Draft     JSON Hypertext Application Language          May 2016
-
-
    Email: mike@stateless.group
    URI:   https://stateless.group/
 
@@ -625,48 +669,4 @@ Internet-Draft     JSON Hypertext Application Language          May 2016
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Kelly                   Expires 12 November 2016               [Page 12]
+Kelly                     Expires 30 March 2024                [Page 12]
