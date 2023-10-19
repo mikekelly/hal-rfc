@@ -142,7 +142,9 @@ Content-Type: application/hal+json
 
     <section anchor="link-objects" title="Link Objects">
 
-      <t>A Link Object represents a hyperlink from the containing resource to a URI. It has the following properties:</t>
+      <t>A Link Object represents a hyperlink from the containing resource to a URI.</t>
+      <t>When a HAL client traverses a link, it SHOULD include referral metadata in the request (eg. in the HTTP Referer header)</t>
+      <t>A Link Object has the following properties:</t>
 
       <section anchor="link-href" title="href">
         <t>The "href" property is REQUIRED.</t>
