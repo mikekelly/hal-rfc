@@ -4,12 +4,12 @@
 
 Network Working Group                                           M. Kelly
 Internet-Draft                                                 Stateless
-Intended status: Informational                            4 October 2023
-Expires: 6 April 2024
+Intended status: Informational                           19 October 2023
+Expires: 21 April 2024
 
 
                   JSON Hypertext Application Language
-                        draft-kelly-json-hal-10
+                        draft-kelly-json-hal-11
 
 Abstract
 
@@ -31,7 +31,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 April 2024.
+   This Internet-Draft will expire on 21 April 2024.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Kelly                     Expires 6 April 2024                  [Page 1]
+Kelly                     Expires 21 April 2024                 [Page 1]
 
 Internet-Draft     JSON Hypertext Application Language      October 2023
 
@@ -67,12 +67,12 @@ Table of Contents
      4.1.  Reserved Properties . . . . . . . . . . . . . . . . . . .   4
        4.1.1.  _links  . . . . . . . . . . . . . . . . . . . . . . .   4
        4.1.2.  _embedded . . . . . . . . . . . . . . . . . . . . . .   4
-   5.  Link Objects  . . . . . . . . . . . . . . . . . . . . . . . .   4
+   5.  Link Objects  . . . . . . . . . . . . . . . . . . . . . . . .   5
      5.1.  href  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      5.2.  templated . . . . . . . . . . . . . . . . . . . . . . . .   5
      5.3.  type  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      5.4.  deprecation . . . . . . . . . . . . . . . . . . . . . . .   5
-     5.5.  name  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     5.5.  name  . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      5.6.  profile . . . . . . . . . . . . . . . . . . . . . . . . .   6
      5.7.  title . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      5.8.  hreflang  . . . . . . . . . . . . . . . . . . . . . . . .   6
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Kelly                     Expires 6 April 2024                  [Page 2]
+Kelly                     Expires 21 April 2024                 [Page 2]
 
 Internet-Draft     JSON Hypertext Application Language      October 2023
 
@@ -165,7 +165,7 @@ Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 
-Kelly                     Expires 6 April 2024                  [Page 3]
+Kelly                     Expires 21 April 2024                 [Page 3]
 
 Internet-Draft     JSON Hypertext Application Language      October 2023
 
@@ -199,6 +199,12 @@ Internet-Draft     JSON Hypertext Application Language      October 2023
    of Link Objects.  The subject resource of these links is the Resource
    Object of which the containing "_links" object is a property.
 
+   For a given link relation, servers SHOULD NOT change the property
+   between a Link Object and array of Link Objects.  Such changes SHOULD
+   introduce a new link relation.  This is to avoid breaking changes for
+   existing clients coupled to the original choice, and is a
+   consideration for any JSON based API.
+
 4.1.2.  _embedded
 
    The reserved "_embedded" property is OPTIONAL
@@ -210,21 +216,20 @@ Internet-Draft     JSON Hypertext Application Language      October 2023
    Embedded Resources MAY be a full, partial, or inconsistent version of
    the representation served from the target URI.
 
+
+
+
+
+
+Kelly                     Expires 21 April 2024                 [Page 4]
+
+Internet-Draft     JSON Hypertext Application Language      October 2023
+
+
 5.  Link Objects
 
    A Link Object represents a hyperlink from the containing resource to
    a URI.  It has the following properties:
-
-
-
-
-
-
-
-Kelly                     Expires 6 April 2024                  [Page 4]
-
-Internet-Draft     JSON Hypertext Application Language      October 2023
-
 
 5.1.  href
 
@@ -266,21 +271,23 @@ Internet-Draft     JSON Hypertext Application Language      October 2023
    value so that a client maintainer can easily find information about
    the deprecation.
 
+
+
+
+
+
+
+Kelly                     Expires 21 April 2024                 [Page 5]
+
+Internet-Draft     JSON Hypertext Application Language      October 2023
+
+
 5.5.  name
 
    The "name" property is OPTIONAL.
 
    Its value MAY be used as a secondary key for selecting Link Objects
    which share the same relation type.
-
-
-
-
-
-Kelly                     Expires 6 April 2024                  [Page 5]
-
-Internet-Draft     JSON Hypertext Application Language      October 2023
-
 
 5.6.  profile
 
@@ -326,14 +333,7 @@ Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 
-
-
-
-
-
-
-
-Kelly                     Expires 6 April 2024                  [Page 6]
+Kelly                     Expires 21 April 2024                 [Page 6]
 
 Internet-Draft     JSON Hypertext Application Language      October 2023
 
@@ -389,7 +389,7 @@ Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 
-Kelly                     Expires 6 April 2024                  [Page 7]
+Kelly                     Expires 21 April 2024                 [Page 7]
 
 Internet-Draft     JSON Hypertext Application Language      October 2023
 
@@ -445,7 +445,7 @@ Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 
-Kelly                     Expires 6 April 2024                  [Page 8]
+Kelly                     Expires 21 April 2024                 [Page 8]
 
 Internet-Draft     JSON Hypertext Application Language      October 2023
 
@@ -501,7 +501,7 @@ Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 
-Kelly                     Expires 6 April 2024                  [Page 9]
+Kelly                     Expires 21 April 2024                 [Page 9]
 
 Internet-Draft     JSON Hypertext Application Language      October 2023
 
@@ -557,7 +557,7 @@ Internet-Draft     JSON Hypertext Application Language      October 2023
 
 
 
-Kelly                     Expires 6 April 2024                 [Page 10]
+Kelly                     Expires 21 April 2024                [Page 10]
 
 Internet-Draft     JSON Hypertext Application Language      October 2023
 
@@ -613,7 +613,7 @@ Appendix A.  Acknowledgements
 
 
 
-Kelly                     Expires 6 April 2024                 [Page 11]
+Kelly                     Expires 21 April 2024                [Page 11]
 
 Internet-Draft     JSON Hypertext Application Language      October 2023
 
@@ -669,4 +669,4 @@ Author's Address
 
 
 
-Kelly                     Expires 6 April 2024                 [Page 12]
+Kelly                     Expires 21 April 2024                [Page 12]

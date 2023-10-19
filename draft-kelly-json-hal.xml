@@ -21,7 +21,7 @@
 <?rfc comments="yes" ?>
 <?rfc inline="yes" ?>
 
-<rfc ipr="trust200902" docName="draft-kelly-json-hal-10" category="info" submissionType="IETF">
+<rfc ipr="trust200902" docName="draft-kelly-json-hal-11" category="info" submissionType="IETF">
 
   <front>
 
@@ -34,7 +34,7 @@
         <uri>https://stateless.group/</uri>
       </address>
     </author>
-    <date year="2023" month="October" day="4"/>
+    <date year="2023" month="October" day="19"/>
 
     <abstract>
       <t>This document proposes a media type for representing resources and their relations with hyperlinks.</t>
@@ -115,7 +115,20 @@ Content-Type: application/hal+json
 
         <section anchor="resource-links" title="_links">
           <t>The reserved "_links" property is OPTIONAL.</t>
-          <t>It is an object whose property names are link relation types (as defined by <xref target="RFC5988"/>) and values are either a Link Object or an array of Link Objects. The subject resource of these links is the Resource Object of which the containing "_links" object is a property.</t>
+          <t>
+            It is an object whose property names are link relation types (as
+            defined by <xref target="RFC5988"/>) and values are either a Link
+            Object or an array of Link Objects. The subject resource of
+            these links is the Resource Object of which the containing
+            "_links" object is a property.
+          </t>
+          <t>
+            For a given link relation, servers SHOULD NOT change the property
+            between a Link Object and array of Link Objects. Such changes SHOULD
+            introduce a new link relation. This is to avoid breaking changes for
+            existing clients coupled to the original choice, and is a
+            consideration for any JSON based API.
+          </t>
         </section>
 
         <section anchor="embedded-resources" title="_embedded">
